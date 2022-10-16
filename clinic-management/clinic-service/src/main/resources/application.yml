@@ -1,0 +1,13 @@
+server:
+  port: 8193
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: root
+    url: jdbc:mysql://localhost:3307/clinicdb
+    username: root
+  application:
+       name: patient-service
+    
+  jpa:
+    show-sql: true
