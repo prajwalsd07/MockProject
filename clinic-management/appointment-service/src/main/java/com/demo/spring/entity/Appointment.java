@@ -1,7 +1,5 @@
 package com.demo.spring.entity;
 
-import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,13 +16,13 @@ public class Appointment {
 	@Column(name="PATIENT_ID")
 	private Integer patientID;
 	@Column(name="DATE")
-	private Date date;
+	private String date;
 
 	public Appointment() {
 
 	}
 
-	public Appointment(Integer appointmentID, Integer doctorID, Integer patientID, Date date) {
+	public Appointment(Integer appointmentID, Integer doctorID, Integer patientID, String date) {
 		this.appointmentID = appointmentID;
 		this.doctorID = doctorID;
 		this.patientID = patientID;
@@ -55,11 +53,13 @@ public class Appointment {
 		this.patientID = patientID;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
+
+	
 }

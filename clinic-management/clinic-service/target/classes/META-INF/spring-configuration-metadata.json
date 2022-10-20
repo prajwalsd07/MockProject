@@ -1,0 +1,27 @@
+{
+  "groups": [
+    {
+      "name": "",
+      "type": "com.demo.spring.util.ServerConfiguration",
+      "sourceType": "com.demo.spring.util.ServerConfiguration"
+    }
+  ],
+  "properties": [
+    {
+      "name": "appointment-server",
+      "type": "java.lang.String",
+      "sourceType": "com.demo.spring.util.ServerConfiguration"
+    },
+    {
+      "name": "clinic-server",
+      "type": "java.lang.String",
+      "sourceType": "com.demo.spring.util.ServerConfiguration"
+    },
+    {
+      "name": "patient-server",
+      "type": "java.lang.String",
+      "sourceType": "com.demo.spring.util.ServerConfiguration"
+    }
+  ],
+  "hints": []
+}

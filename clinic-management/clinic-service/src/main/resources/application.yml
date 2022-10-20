@@ -7,7 +7,9 @@ spring:
     url: jdbc:mysql://localhost:3307/clinicdb
     username: root
   application:
-       name: patient-service
+       name: clinic-service
     
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: update

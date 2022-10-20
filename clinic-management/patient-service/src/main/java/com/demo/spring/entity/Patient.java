@@ -27,7 +27,7 @@ public class Patient {
 	}
 
 	public Patient(Integer patientId, String firstName, String lastName, String email) {
-		super();
+	
 		this.patientId = patientId;
 		this.firstName = firstName;
 		this.lastName = lastName;

@@ -39,5 +39,6 @@
 		<module>patient-service</module>
 		<module>appointment-service</module>
 		<module>clinic-service</module>
+		<module>api-gateway</module>
 	</modules>
 </project>

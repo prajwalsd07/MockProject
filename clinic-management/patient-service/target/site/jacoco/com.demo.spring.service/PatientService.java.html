@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PatientService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">patient-service</a> &gt; <a href="index.source.html" class="el_package">com.demo.spring.service</a> &gt; <span class="el_source">PatientService.java</span></div><h1>PatientService.java</h1><pre class="source lang-java linenums">package com.demo.spring.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.demo.spring.dto.PatientDTO;
+import com.demo.spring.entity.Patient;
+import com.demo.spring.exceptions.PatientNotFoundException;
+import com.demo.spring.repositories.PatientRepository;
+import com.demo.spring.util.Message;
+
+@Service
+<span class="fc" id="L17">public class PatientService {</span>
+
+	@Autowired
+	PatientRepository patientRepo;
+
+	public ResponseEntity&lt;Patient&gt; findPatientService(int patientId) throws PatientNotFoundException {
+<span class="fc" id="L23">		Optional&lt;Patient&gt; patientOp = patientRepo.findById(patientId);</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">		if (patientOp.isPresent()) {</span>
+<span class="fc" id="L25">			return ResponseEntity.ok(patientOp.get());</span>
+		} else {
+<span class="fc" id="L27">			throw new PatientNotFoundException();</span>
+		}
+
+	}
+
+	public ResponseEntity&lt;Message&gt; savePatientService(PatientDTO patientDTO) {
+<span class="fc bfc" id="L33" title="All 2 branches covered.">		if (patientRepo.existsById(patientDTO.getPatientId())) {</span>
+<span class="fc" id="L34">			return ResponseEntity.ok(new Message(&quot;Patient already exists&quot;));</span>
+		} else {
+<span class="fc" id="L36">			Patient patient = new Patient(patientDTO.getPatientId(), patientDTO.getFirstName(),</span>
+<span class="fc" id="L37">					patientDTO.getLastName(), patientDTO.getEmail());</span>
+<span class="fc" id="L38">			patientRepo.save(patient);</span>
+<span class="fc" id="L39">			return ResponseEntity.ok(new Message(&quot;Patient saved&quot;));</span>
+		}
+
+	}
+
+	public ResponseEntity&lt;Message&gt; updatePatientService(PatientDTO patientDTO) {
+<span class="fc bfc" id="L45" title="All 2 branches covered.">		if (patientRepo.existsById(patientDTO.getPatientId())) {</span>
+<span class="fc" id="L46">			Patient patient = new Patient(patientDTO.getPatientId(), patientDTO.getFirstName(),</span>
+<span class="fc" id="L47">					patientDTO.getLastName(), patientDTO.getEmail());</span>
+<span class="fc" id="L48">			patientRepo.save(patient);</span>
+<span class="fc" id="L49">			return ResponseEntity.ok(new Message(&quot;Patient updated&quot;));</span>
+		} else {
+<span class="fc" id="L51">			return ResponseEntity.ok(new Message(&quot;Patient does not exists&quot;));</span>
+		}
+
+	}
+
+	public ResponseEntity&lt;List&lt;Patient&gt;&gt; findPatientByFirstNameService(String firstName)
+			throws PatientNotFoundException {
+<span class="fc" id="L58">		List&lt;Patient&gt; patientList = patientRepo.findAllByFirstName(firstName);</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">		if (patientList.isEmpty()) {</span>
+<span class="fc" id="L60">			throw new PatientNotFoundException();</span>
+		} else {
+<span class="fc" id="L62">			return ResponseEntity.ok(patientList);</span>
+		}
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

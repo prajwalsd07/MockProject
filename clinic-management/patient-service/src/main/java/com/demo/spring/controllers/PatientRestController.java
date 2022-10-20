@@ -1,7 +1,6 @@
 package com.demo.spring.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,6 +17,7 @@ import com.demo.spring.dto.PatientDTO;
 import com.demo.spring.entity.Patient;
 import com.demo.spring.exceptions.PatientNotFoundException;
 import com.demo.spring.repositories.PatientRepository;
+import com.demo.spring.service.PatientService;
 import com.demo.spring.util.Message;
 
 import io.swagger.v3.oas.annotations.OpenAPI30;
@@ -26,57 +26,44 @@ import io.swagger.v3.oas.annotations.OpenAPI30;
 @RequestMapping("/patient")
 @OpenAPI30
 public class PatientRestController {
+	@Autowired
+	PatientService patientService;
 
 	@Autowired
 	PatientRepository patientRepo;
 
+	/*
+		this will take patientId as input and returns Patient Details
+		*/
 	@GetMapping(path = "/{patientId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Patient> findPatient(@PathVariable("patientId") int patientId)
 			throws PatientNotFoundException {
-		Optional<Patient> patientOp = patientRepo.findById(patientId);
-		if (patientOp.isPresent()) {
-			return ResponseEntity.ok(patientOp.get());
-		} else {
-			throw new PatientNotFoundException();
-		}
+		return patientService.findPatientService(patientId);
 
 	}
-
+	/*
+	this will add new patient to patient Table (JSON as input)
+	*/
 	@PostMapping(path = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Message> savePatient(@RequestBody PatientDTO patientDTO) {
-		if (patientRepo.existsById(patientDTO.getPatientId())) {
-			return ResponseEntity.ok(new Message("Patient already exists"));
-		} else {
-			Patient patient = new Patient(patientDTO.getPatientId(), patientDTO.getFirstName(),
-					patientDTO.getLastName(), patientDTO.getEmail());
-			patientRepo.save(patient);
-			return ResponseEntity.ok(new Message("Patient saved"));
-		}
-
+		return patientService.savePatientService(patientDTO);
 	}
-
+	/*
+	this is used to update patient details.
+	this will take patient details in JSON as input and checks patient exists and returns Patient updated
+	*/
 	@PatchMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Message> updatePatient(@RequestBody PatientDTO patientDTO) {
-		if (patientRepo.existsById(patientDTO.getPatientId())) {
-			Patient patient = new Patient(patientDTO.getPatientId(), patientDTO.getFirstName(),
-					patientDTO.getLastName(), patientDTO.getEmail());
-			patientRepo.save(patient);
-			return ResponseEntity.ok(new Message("Patient updated"));
-		} else {
-			return ResponseEntity.ok(new Message("Patient does not exists"));
-		}
+		return patientService.updatePatientService(patientDTO);
 
 	}
-
+	/*
+	this will list all patient details based on first name
+	*/
 	@GetMapping(path = "/list/{firstName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Patient>> findPatientByFirstName(@PathVariable("firstName") String firstName)
 			throws PatientNotFoundException {
-		List<Patient> patientList = patientRepo.findAllByFirstName(firstName);
-		if (patientList.isEmpty()) {
-			throw new PatientNotFoundException();
-		} else {
-			return ResponseEntity.ok(patientList);
-		}
+		return patientService.findPatientByFirstNameService(firstName);
 	}
 
 }

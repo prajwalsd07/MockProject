@@ -1,0 +1,8 @@
+com\demo\spring\entity\Appointment.class
+com\demo\spring\service\AppointmentService.class
+com\demo\spring\util\Message.class
+com\demo\spring\controllers\AppointmentRestController.class
+com\demo\spring\exceptions\AppointmentNotFoundException.class
+com\demo\spring\repositories\AppointmentRepository.class
+com\demo\spring\dto\AppointmentDTO.class
+com\demo\spring\AppointmentApplication.class

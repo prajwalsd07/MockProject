@@ -1,6 +1,5 @@
 package com.demo.spring.controllers;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import com.demo.spring.dto.AppointmentDTO;
 import com.demo.spring.entity.Appointment;
 import com.demo.spring.exceptions.AppointmentNotFoundException;
 import com.demo.spring.repositories.AppointmentRepository;
+import com.demo.spring.service.AppointmentService;
 import com.demo.spring.util.Message;
 
 import io.swagger.v3.oas.annotations.OpenAPI30;
@@ -27,33 +27,28 @@ import io.swagger.v3.oas.annotations.OpenAPI30;
 public class AppointmentRestController {
 	@Autowired
 	AppointmentRepository appointmentRepo;
-
+	@Autowired
+	AppointmentService appointmentService;
+	/*
+	this will list all the appointments
+	*/
 	@GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Appointment>> findAllAppointments() {
-		return ResponseEntity.ok(appointmentRepo.findAll());
+		return appointmentService.findAllAppointmentsService();
 	}
-
+	/*
+	this will list all the appointments based on doctorId and date
+	*/
 	@GetMapping(path = "/list/{doctorID}/{date}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Appointment>> findAppointmentsByDate(@PathVariable("doctorID") int doctorID,
-			@PathVariable("date") Date date) throws AppointmentNotFoundException {
-		List<Appointment> listAppointment = appointmentRepo.findAllByDate(doctorID, date);
-		if (listAppointment.isEmpty()) {
-			throw new AppointmentNotFoundException();
-		} else {
-			return ResponseEntity.ok(listAppointment);
-		}
+			@PathVariable("date") String date) throws AppointmentNotFoundException {
+		return appointmentService.findAppointmentsByDateService(doctorID, date);
 	}
-
+	/*
+	this will create new appointment (takes input in JSON)
+	*/
 	@PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Message> getAppointment(@RequestBody AppointmentDTO appointmentDTO) {
-		if (appointmentRepo.existsById(appointmentDTO.getAppointmentID())) {
-			return ResponseEntity.ok(new Message("Appointment already exists"));
-		} else {
-			Appointment appointment = new Appointment(appointmentDTO.getAppointmentID(), appointmentDTO.getDoctorID(),
-					appointmentDTO.getPatientID(), appointmentDTO.getDate());
-			appointmentRepo.save(appointment);
-			return ResponseEntity.ok(new Message("Appointment saved"));
-		}
-
+	public ResponseEntity<Message> createAppointment(@RequestBody AppointmentDTO appointmentDTO) {
+	return appointmentService.createAppointmentService(appointmentDTO);
 	}
 }

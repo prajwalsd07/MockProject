@@ -1,7 +1,5 @@
 package com.demo.spring.dto;
 
-import java.sql.Date;
-
 public class AppointmentDTO {
 
 	private Integer appointmentID;
@@ -10,13 +8,13 @@ public class AppointmentDTO {
 
 	private Integer patientID;
 
-	private Date date;
+	private String date;
 
 	public AppointmentDTO() {
 
 	}
 
-	public AppointmentDTO(Integer appointmentID, Integer doctorID, Integer patientID, Date date) {
+	public AppointmentDTO(Integer appointmentID, Integer doctorID, Integer patientID, String date) {
 		this.appointmentID = appointmentID;
 		this.doctorID = doctorID;
 		this.patientID = patientID;
@@ -47,11 +45,12 @@ public class AppointmentDTO {
 		this.patientID = patientID;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
+
 }

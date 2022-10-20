@@ -7,7 +7,7 @@ spring:
     url: jdbc:mysql://localhost:3307/appointmentdb
     username: root
   application:
-       name: patient-service
+       name: appointment-service
     
   jpa:
     show-sql: true
