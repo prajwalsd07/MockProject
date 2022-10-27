@@ -16,7 +16,7 @@ import com.demo.spring.util.Message;
 public class AppointmentService {
 	@Autowired
 	AppointmentRepository appointmentRepo;
- 
+
 	public ResponseEntity<List<Appointment>> findAllAppointmentsService() {
 		return ResponseEntity.ok(appointmentRepo.findAll());
 	}
@@ -31,13 +31,15 @@ public class AppointmentService {
 }
 	
 	
-	public ResponseEntity<Message> createAppointmentService(AppointmentDTO appointmentDTO) { 
-		
-			Appointment appointment = new Appointment(appointmentDTO.getDoctorID(),
+	public ResponseEntity<Message> createAppointmentService(AppointmentDTO appointmentDTO) {
+		if (appointmentRepo.existsById(appointmentDTO.getAppointmentID())) {
+			return ResponseEntity.ok(new Message("Appointment already exists"));
+		} else {
+			Appointment appointment = new Appointment(appointmentDTO.getAppointmentID(), appointmentDTO.getDoctorID(),
 					appointmentDTO.getPatientID(), appointmentDTO.getDate());
 			appointmentRepo.save(appointment);
 			return ResponseEntity.ok(new Message("Appointment saved"));
-		
+		}
 
 	}
 }

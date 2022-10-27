@@ -21,13 +21,6 @@ public class AppointmentDTO {
 		this.date = date;
 	}
 
-	public AppointmentDTO(Integer doctorID, Integer patientID, String date) {
-		super();
-		this.doctorID = doctorID;
-		this.patientID = patientID;
-		this.date = date;
-	}
-
 	public Integer getAppointmentID() {
 		return appointmentID;
 	}

@@ -39,6 +39,7 @@ public class PatientRestController {
 	public ResponseEntity<Patient> findPatient(@PathVariable("patientId") int patientId)
 			throws PatientNotFoundException {
 		return patientService.findPatientService(patientId);
+
 	}
 	/*
 	this will add new patient to patient Table (JSON as input)

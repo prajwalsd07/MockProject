@@ -25,11 +25,11 @@ public class Speciality {
 		this.specialityName = specialityName;
 	}
 
-	public Integer getSpecialityID() {
+	public Integer getSpecialityId() {
 		return specialityID;
 	}
 
-	public void setSpecialityID(Integer specialityID) {
+	public void setSpecialityId(Integer specialityID) {
 		this.specialityID = specialityID;
 	}
 

@@ -2,19 +2,14 @@ package com.demo.spring.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="PATIENT")
 public class Patient {
 
-	@Id
-    @SequenceGenerator(sequenceName = "Patient_sequence",initialValue = 200, name = "Patient_Id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "Patient_Id")
+	@Id	
 	@Column(name="PATIENT_ID")
 	private Integer patientId;
 	
@@ -29,13 +24,6 @@ public class Patient {
 	
 	public Patient() {
 		
-	}
-
-	public Patient(String firstName, String lastName, String email) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
 	}
 
 	public Patient(Integer patientId, String firstName, String lastName, String email) {

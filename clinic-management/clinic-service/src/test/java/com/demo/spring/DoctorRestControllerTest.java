@@ -2,7 +2,6 @@ package com.demo.spring;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -10,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +27,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @AutoConfigureMockMvc
 class DoctorRestControllerTest {
 
+	
 	@Autowired
 	MockMvc mvc;
-
+	
 	@MockBean
-	DoctorRepository doctorRepository;
-
+	DoctorRepository DoctorRepository;
+	
 	@Test
 	void testListDoctorData() throws Exception {
 		Doctor doctor = new Doctor(105, "bindu", "sp", "bindusp@gmail.com");
@@ -42,70 +41,28 @@ class DoctorRestControllerTest {
 		doctorList.add(doctor);
 		ObjectMapper mapper = new ObjectMapper();
 		String doctorJson = mapper.writeValueAsString(doctorList);
-		when(doctorRepository.findAll()).thenReturn(doctorList);
-
-		mvc.perform(get("/clinic/doctor/list")).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-				.andExpect(content().json(doctorJson));
+		when(DoctorRepository.findAll()).thenReturn(doctorList);
+		
+		mvc.perform(get("/doctor/list"))
+			.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+			.andExpect(content().json(doctorJson));
 
 	}
 
+	
 	@Test
 	void testListDoctorDataFailure() throws Exception {
 		List<Doctor> doctorList = new ArrayList<>();
-		when(doctorRepository.findAll()).thenReturn(doctorList);
-
-		mvc.perform(get("/clinic/doctor/list")).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-				.andExpect(jsonPath("$.status").value("Doctor Not Found"));
-
-	}
-
-	@Test
-	void testfindDoctorSuccess() throws Exception {
-
-		Doctor doctor = new Doctor(105, "bindu", "sp", "bindusp@gmail.com");
-		when(doctorRepository.findById(105)).thenReturn(Optional.of(doctor));
-		mvc.perform(get("/clinic/doctor/105")).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-				.andExpect(jsonPath("$.firstName").value("bindu"));
+		when(DoctorRepository.findAll()).thenReturn(doctorList);
+		
+		mvc.perform(get("/doctor/list"))
+			.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+			.andExpect(jsonPath("$.status").value("Doctor Not Found"));
 
 	}
 
-	@Test
-	void testfindDoctorFailure() throws Exception {
-
-		when(doctorRepository.findById(105)).thenReturn(Optional.empty());
-		mvc.perform(get("/clinic/doctor/105")).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-				.andExpect(jsonPath("$.status").value("Doctor Not Found"));
-
-	}
-
-	 @Test
-    void testSavePatientSuccess() throws Exception {
-		 
-		 Doctor doctor = new Doctor(105, "bindu", "sp", "bindusp@gmail.com");
-		 ObjectMapper mapper = new ObjectMapper();
-        String doctorJson = mapper.writeValueAsString(doctor);
-        when(doctorRepository.findByEmail("bindusp@gmail.com")).thenReturn(Optional.empty());
-        mvc.perform(post("/clinic/doctor/save").content(doctorJson).contentType(MediaType.APPLICATION_JSON_VALUE))
-        .andDo(print())
-        .andExpect(status().isOk())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-        .andExpect(jsonPath("$.status").value("Doctor saved"));
-    }
-	 
-	 @Test
-     void testSavePatientFailure() throws Exception {
-		 Doctor doctor = new Doctor(105, "bindu", "sp", "bindusp@gmail.com");
-		 ObjectMapper mapper = new ObjectMapper();
-        String doctorJson = mapper.writeValueAsString(doctor);
-        when(doctorRepository.findByEmail("bindusp@gmail.com")).thenReturn(Optional.of(doctor));
-        mvc.perform(post("/clinic/doctor/save").content(doctorJson).contentType(MediaType.APPLICATION_JSON_VALUE))
-        .andDo(print())
-        .andExpect(status().isOk())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-         .andExpect(jsonPath("$.status").value("Doctor already exists"));
-     }
 }

@@ -2,79 +2,65 @@
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = &quot;appointment&quot;)
 public class Appointment {
-
-	
 	@Id
-    @SequenceGenerator(sequenceName = &quot;Appointment_sequence&quot;,initialValue = 100, name = &quot;Appointment_Id&quot;)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = &quot;Appointment_Id&quot;)
-	
-	@Column(name = &quot;APPOINTMENT_ID&quot;)
+@Column(name=&quot;APPOINTMENT_ID&quot;)
 	private Integer appointmentID;
-	@Column(name = &quot;DOCTOR_ID&quot;)
+	@Column(name=&quot;DOCTOR_ID&quot;)
 	private Integer doctorID;
-	@Column(name = &quot;PATIENT_ID&quot;)
+	@Column(name=&quot;PATIENT_ID&quot;)
 	private Integer patientID;
-	@Column(name = &quot;DATE&quot;)
+	@Column(name=&quot;DATE&quot;)
 	private String date;
 
-<span class="fc" id="L29">	public Appointment() {</span>
+<span class="nc" id="L21">	public Appointment() {</span>
 
-<span class="fc" id="L31">	}</span>
+<span class="nc" id="L23">	}</span>
 
-	public Appointment(Integer doctorID, Integer patientID, String date) {
-<span class="fc" id="L34">		super();</span>
-<span class="fc" id="L35">		this.doctorID = doctorID;</span>
-<span class="fc" id="L36">		this.patientID = patientID;</span>
-<span class="fc" id="L37">		this.date = date;</span>
-<span class="fc" id="L38">	}</span>
-
-<span class="fc" id="L40">	public Appointment(Integer appointmentID, Integer doctorID, Integer patientID, String date) {</span>
-<span class="fc" id="L41">		this.appointmentID = appointmentID;</span>
-<span class="fc" id="L42">		this.doctorID = doctorID;</span>
-<span class="fc" id="L43">		this.patientID = patientID;</span>
-<span class="fc" id="L44">		this.date = date;</span>
-<span class="fc" id="L45">	}</span>
+<span class="fc" id="L25">	public Appointment(Integer appointmentID, Integer doctorID, Integer patientID, String date) {</span>
+<span class="fc" id="L26">		this.appointmentID = appointmentID;</span>
+<span class="fc" id="L27">		this.doctorID = doctorID;</span>
+<span class="fc" id="L28">		this.patientID = patientID;</span>
+<span class="fc" id="L29">		this.date = date;</span>
+<span class="fc" id="L30">	}</span>
 
 	public Integer getAppointmentID() {
-<span class="fc" id="L48">		return appointmentID;</span>
+<span class="fc" id="L33">		return appointmentID;</span>
 	}
 
 	public void setAppointmentID(Integer appointmentID) {
-<span class="nc" id="L52">		this.appointmentID = appointmentID;</span>
-<span class="nc" id="L53">	}</span>
+<span class="nc" id="L37">		this.appointmentID = appointmentID;</span>
+<span class="nc" id="L38">	}</span>
 
 	public Integer getDoctorID() {
-<span class="fc" id="L56">		return doctorID;</span>
+<span class="fc" id="L41">		return doctorID;</span>
 	}
 
 	public void setDoctorID(Integer doctorID) {
-<span class="nc" id="L60">		this.doctorID = doctorID;</span>
-<span class="nc" id="L61">	}</span>
+<span class="nc" id="L45">		this.doctorID = doctorID;</span>
+<span class="nc" id="L46">	}</span>
 
 	public Integer getPatientID() {
-<span class="fc" id="L64">		return patientID;</span>
+<span class="fc" id="L49">		return patientID;</span>
 	}
 
 	public void setPatientID(Integer patientID) {
-<span class="nc" id="L68">		this.patientID = patientID;</span>
-<span class="nc" id="L69">	}</span>
+<span class="nc" id="L53">		this.patientID = patientID;</span>
+<span class="nc" id="L54">	}</span>
 
 	public String getDate() {
-<span class="fc" id="L72">		return date;</span>
+<span class="fc" id="L57">		return date;</span>
 	}
 
 	public void setDate(String date) {
-<span class="nc" id="L76">		this.date = date;</span>
-<span class="nc" id="L77">	}</span>
+<span class="nc" id="L61">		this.date = date;</span>
+<span class="nc" id="L62">	}</span>
 
+	
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

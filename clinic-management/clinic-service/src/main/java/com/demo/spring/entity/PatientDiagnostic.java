@@ -40,8 +40,6 @@ public class PatientDiagnostic {
 		DiagnosticID = diagnosticID;
 	}
 
-	
-
 	public Integer getId() {
 		return id;
 	}
@@ -65,5 +63,8 @@ public class PatientDiagnostic {
 	public void setDiagnosticID(Integer diagnosticID) {
 		DiagnosticID = diagnosticID;
 	}
+
+	
+
 
 }

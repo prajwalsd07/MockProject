@@ -30,12 +30,10 @@ public class PatientService {
 	}
 
 	public ResponseEntity<Message> savePatientService(PatientDTO patientDTO) {
-		
-		Optional<Patient> patientex = patientRepo.findByEmail(patientDTO.getEmail());
-		if (patientex.isPresent()) {
+		if (patientRepo.existsById(patientDTO.getPatientId())) {
 			return ResponseEntity.ok(new Message("Patient already exists"));
 		} else {
-			Patient patient = new Patient(patientDTO.getFirstName(),
+			Patient patient = new Patient(patientDTO.getPatientId(), patientDTO.getFirstName(),
 					patientDTO.getLastName(), patientDTO.getEmail());
 			patientRepo.save(patient);
 			return ResponseEntity.ok(new Message("Patient saved"));
@@ -45,7 +43,7 @@ public class PatientService {
 
 	public ResponseEntity<Message> updatePatientService(PatientDTO patientDTO) {
 		if (patientRepo.existsById(patientDTO.getPatientId())) {
-			Patient patient = new Patient(patientDTO.getFirstName(),
+			Patient patient = new Patient(patientDTO.getPatientId(), patientDTO.getFirstName(),
 					patientDTO.getLastName(), patientDTO.getEmail());
 			patientRepo.save(patient);
 			return ResponseEntity.ok(new Message("Patient updated"));

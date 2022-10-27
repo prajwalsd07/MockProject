@@ -9,8 +9,6 @@ import com.demo.spring.util.Message;
 @ControllerAdvice
 public class DoctorNotFoundException extends Exception {
 	
-	private static final long serialVersionUID = 1L;
-
 	@ExceptionHandler
 	public ResponseEntity<Message> DoctorNotFound(DoctorNotFoundException ex){
 		return ResponseEntity.ok(new Message("Doctor Not Found"));

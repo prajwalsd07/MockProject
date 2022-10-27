@@ -2,15 +2,14 @@ package com.demo.spring.dto;
 
 public class DoctorDTO {
 
+	
 	private Integer doctorID;
 	private String firstName;
-
 	private String lastName;
-
 	private String email;
 
 	public DoctorDTO() {
-
+		
 	}
 
 	public DoctorDTO(Integer doctorID, String firstName, String lastName, String email) {
@@ -20,11 +19,11 @@ public class DoctorDTO {
 		this.email = email;
 	}
 
-	public Integer getDoctorID() {
+	public Integer getDoctorId() {
 		return doctorID;
 	}
 
-	public void setDoctorID(Integer doctorID) {
+	public void setDoctorId(Integer doctorID) {
 		this.doctorID = doctorID;
 	}
 

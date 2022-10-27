@@ -22,7 +22,7 @@ import com.demo.spring.service.DoctorSpecialityService;
 import com.demo.spring.util.Message;
 
 @RestController
-@RequestMapping("/clinic")
+@RequestMapping("/speciality")
 public class DoctorSpecialityRestController {
 
 	@Autowired
@@ -31,7 +31,7 @@ public class DoctorSpecialityRestController {
 	/*
 	this will list all the doctors in a particular speciality
 	*/
-	@GetMapping(path = "/speciality/list/{specialityID}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/list/{specialityID}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Doctor>> listDoctorinSpeciality(@PathVariable("specialityID") Integer specialityID) throws SpecialityNotFoundException, DoctorNotFoundException {
 		return ResponseEntity.ok(doctorSpecialityService.listDoctorInSpeciality(specialityID));
 	}
@@ -39,7 +39,7 @@ public class DoctorSpecialityRestController {
 	/*
 	this will add new doctor to a speciality
 	*/
-	@PostMapping(path="/speciality/addDoctor" ,consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path="/addDoctor" ,consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Message> addDoctorToSpeciality(@RequestBody DoctorSpecialityDTO doctorSpecialityDTO) throws DoctorNotFoundException{
 		return ResponseEntity.ok(doctorSpecialityService.addDoctorService(doctorSpecialityDTO));
     }
@@ -47,9 +47,9 @@ public class DoctorSpecialityRestController {
 	/*
 	this will remove doctor from speciality
 	*/
-	@DeleteMapping(path = "/speciality/removeDoctor/{doctorID}/{specialityID}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Message> removeDoctorFromSpeciality(@PathVariable("doctorID") Integer doctorId,@PathVariable("specialityID") Integer specialityId) throws DoctorSpecialityNotFoundException {
-		return ResponseEntity.ok(doctorSpecialityService.removeDoctorFromSpecialityService(doctorId,specialityId));
+	@DeleteMapping(path = "/removeDoctor/{doctorID}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Message> removeDoctorFromSpeciality(@PathVariable("doctorID") Integer id) throws DoctorSpecialityNotFoundException {
+		return ResponseEntity.ok(doctorSpecialityService.removeDoctorFromSpecialityService(id));
 	}
 
 }

@@ -9,8 +9,6 @@ import com.demo.spring.util.Message;
 @ControllerAdvice
 public class DiagnosticTestExistsException extends Exception {
 
-	private static final long serialVersionUID = 1L;
-
 	@ExceptionHandler
 	public ResponseEntity<Message> diagnosticExists(DiagnosticTestExistsException ex){
 		return ResponseEntity.ok(new Message("DiagnosticTest Already Exists"));

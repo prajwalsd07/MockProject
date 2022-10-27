@@ -9,11 +9,6 @@ import com.demo.spring.util.Message;
 @ControllerAdvice
 public class SpecialityNotFoundException extends Exception {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	@ExceptionHandler
 	public ResponseEntity<Message> SpecialityNotFound(SpecialityNotFoundException ex){
 		return ResponseEntity.ok(new Message("Speciality Not Found"));

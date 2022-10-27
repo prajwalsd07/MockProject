@@ -41,9 +41,9 @@ public class DoctorSpecialityService {
 
 	}
 
-	public Message removeDoctorFromSpecialityService(Integer doctorID,Integer specialityId) throws DoctorSpecialityNotFoundException {
-		List<DoctorSpeciality> doctorList = doctorSpecialityRepository.findByDoctorIdAndSpecialityId(doctorID,specialityId);
-		if (doctorList.isEmpty()) { 
+	public Message removeDoctorFromSpecialityService(Integer doctorID) throws DoctorSpecialityNotFoundException {
+		List<DoctorSpeciality> doctorList = doctorSpecialityRepository.findByDoctorID(doctorID);
+		if (doctorList.isEmpty()) {
 			throw new DoctorSpecialityNotFoundException();
 		} else {
 			for(DoctorSpeciality doctorSpeciality : doctorList)
@@ -61,7 +61,7 @@ public class DoctorSpecialityService {
 			List<Doctor> doctorList = new ArrayList<>();
 			if(doctorIdList.isEmpty())
 			{
-				throw new SpecialityNotFoundException();
+				throw new DoctorNotFoundException();
 			}else
 			{
 				for (doctorRepository.existsById(doctorIdList.get(i).getDoctorID()); i < doctorIdList.size(); i++) {
@@ -72,8 +72,7 @@ public class DoctorSpecialityService {
 					}
 				}
 				if (doctorList.isEmpty()) {
-					throw new DoctorNotFoundException();
-					
+					throw new SpecialityNotFoundException();
 				} else {
 					return doctorList;
 				}

@@ -9,8 +9,6 @@ import com.demo.spring.util.Message;
 @ControllerAdvice
 public class DiagnosticNotFoundException extends Exception {
 
-	private static final long serialVersionUID = 1L;
-
 	@ExceptionHandler
 	public ResponseEntity<Message> diagnosticNotFound(DiagnosticNotFoundException ex) {
 		return ResponseEntity.ok(new Message("Diagnostic Not Found"));
