@@ -14,6 +14,21 @@ public class PatientDTO {
 
 	}
 
+	public PatientDTO(Integer patientId, String firstName, String lastName, String email) {
+		super();
+		this.patientId = patientId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
+
+	public PatientDTO(String firstName, String lastName, String email) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
+
 	public Integer getPatientId() {
 		return patientId;
 	}

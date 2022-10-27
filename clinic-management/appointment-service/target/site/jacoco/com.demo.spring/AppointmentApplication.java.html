@@ -2,24 +2,33 @@
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.client.RestTemplate;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 
 @SpringBootApplication
-<span class="fc" id="L12">public class AppointmentApplication {</span>
+@ComponentScan (basePackages = {&quot;com.demo.spring&quot;})
+<span class="fc" id="L16">public class AppointmentApplication {</span>
 
 	public static void main(String[] args) {
-<span class="nc" id="L15">		SpringApplication.run(AppointmentApplication.class, args);</span>
+<span class="nc" id="L19">		SpringApplication.run(AppointmentApplication.class, args);</span>
 
-<span class="nc" id="L17">	}</span>
+<span class="nc" id="L21">	}</span>
 
 	@Bean
 	public OpenAPI openApiDoc() {
-<span class="fc" id="L21">		return new OpenAPI().info(new Info().description(&quot;Mock prject on Clinic Management&quot;)</span>
-<span class="fc" id="L22">		       .license(new License().name(&quot;Free for All&quot;)).title(&quot;Mock Project Document&quot;).version(&quot;1.0.0-BETA&quot;));</span>
+<span class="fc" id="L25">		return new OpenAPI().info(new Info().description(&quot;Mock prject on Clinic Management&quot;)</span>
+<span class="fc" id="L26">				.license(new License().name(&quot;Free for All&quot;)).title(&quot;Mock Project Document&quot;).version(&quot;1.0.0-BETA&quot;));</span>
+	} 
+
+	@Bean
+	RestTemplate restTemplate() {
+<span class="fc" id="L31">		return new RestTemplateBuilder().build();</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

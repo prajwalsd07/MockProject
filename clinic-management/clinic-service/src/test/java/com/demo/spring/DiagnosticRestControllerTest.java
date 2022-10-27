@@ -45,7 +45,7 @@ class DiagnosticRestControllerTest {
 		String diagnosticJson = mapper.writeValueAsString(diagnosticList);
 		when(diagnosticRepository.findAll()).thenReturn(diagnosticList);
 
-		mvc.perform(get("/diagnostic/list")).andDo(print()).andExpect(status().isOk())
+		mvc.perform(get("/clinic/diagnostic/list")).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(content().json(diagnosticJson));
 	}
@@ -57,7 +57,7 @@ class DiagnosticRestControllerTest {
 		String diagnosticJson = mapper.writeValueAsString(diagnostic);
 		when(diagnosticRepository.existsById(7)).thenReturn(false);
 
-		mvc.perform(post("/diagnostic/addTest").content(diagnosticJson).contentType(MediaType.APPLICATION_JSON_VALUE))
+		mvc.perform(post("/clinic/diagnostic/addTest").content(diagnosticJson).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andDo(print()).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$.status").value("New test added"));
@@ -70,7 +70,7 @@ class DiagnosticRestControllerTest {
 		String diagnosticJson = mapper.writeValueAsString(diagnostic);
 		when(diagnosticRepository.existsById(7)).thenReturn(true);
 
-		mvc.perform(post("/diagnostic/addTest").content(diagnosticJson).contentType(MediaType.APPLICATION_JSON_VALUE))
+		mvc.perform(post("/clinic/diagnostic/addTest").content(diagnosticJson).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andDo(print()).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$.status").value("DiagnosticTest Already Exists"));
@@ -81,7 +81,7 @@ class DiagnosticRestControllerTest {
 		Diagnostic diagnostic = new Diagnostic(7, "urography");
 		when(diagnosticRepository.findById(7)).thenReturn(Optional.of(diagnostic));
 
-		mvc.perform(delete("/diagnostic/deleteTest/7")).andDo(print()).andExpect(status().isOk())
+		mvc.perform(delete("/clinic/diagnostic/deleteTest/7")).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$.status").value("Test deleted"));
 	}
@@ -89,7 +89,7 @@ class DiagnosticRestControllerTest {
 	@Test
 	void testdeleteTestFailure() throws Exception {
 		when(diagnosticRepository.findById(7)).thenReturn(Optional.empty());
-		mvc.perform(delete("/diagnostic/deleteTest/7")).andDo(print()).andExpect(status().isOk())
+		mvc.perform(delete("/clinic/diagnostic/deleteTest/7")).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$.status").value("Diagnostic Not Found"));
 	}

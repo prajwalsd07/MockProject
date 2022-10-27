@@ -3,6 +3,7 @@
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +12,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
+import com.demo.spring.ServerConfiguration;
 import com.demo.spring.dto.AppointmentDTO;
+import com.demo.spring.dto.DoctorDTO;
+import com.demo.spring.dto.PatientDTO;
 import com.demo.spring.entity.Appointment;
 import com.demo.spring.exceptions.AppointmentNotFoundException;
+import com.demo.spring.exceptions.DoctorNotFoundException;
+import com.demo.spring.exceptions.PatientNotFoundException;
 import com.demo.spring.repositories.AppointmentRepository;
 import com.demo.spring.service.AppointmentService;
 import com.demo.spring.util.Message;
@@ -22,27 +29,69 @@ import com.demo.spring.util.Message;
 import io.swagger.v3.oas.annotations.OpenAPI30;
 
 @RestController
+@EnableConfigurationProperties(ServerConfiguration.class)
 @RequestMapping(&quot;/appointment&quot;)
 @OpenAPI30
-<span class="fc" id="L27">public class AppointmentRestController {</span>
+<span class="fc" id="L35">public class AppointmentRestController {</span>
 	@Autowired
 	AppointmentRepository appointmentRepo;
 	@Autowired
 	AppointmentService appointmentService;
 
+	@Autowired
+	ServerConfiguration server;
+
+	@Autowired
+	RestTemplate restTemplate;
+
+	/*
+	 * this will list all the appointments
+	 */
 	@GetMapping(path = &quot;/list&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity&lt;List&lt;Appointment&gt;&gt; findAllAppointments() {
-<span class="fc" id="L35">		return appointmentService.findAllAppointmentsService();</span>
+<span class="fc" id="L52">		return appointmentService.findAllAppointmentsService();</span>
 	}
 
+	/*
+	 * this will list all the appointments based on doctorId and date
+	 */
 	@GetMapping(path = &quot;/list/{doctorID}/{date}&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity&lt;List&lt;Appointment&gt;&gt; findAppointmentsByDate(@PathVariable(&quot;doctorID&quot;) int doctorID,
 			@PathVariable(&quot;date&quot;) String date) throws AppointmentNotFoundException {
-<span class="fc" id="L41">		return appointmentService.findAppointmentsByDateService(doctorID, date);</span>
+<span class="fc" id="L61">		return appointmentService.findAppointmentsByDateService(doctorID, date);</span>
 	}
-	@PostMapping(path = &quot;/create&quot;, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity&lt;Message&gt; createAppointment(@RequestBody AppointmentDTO appointmentDTO) {
-<span class="fc" id="L45">	return appointmentService.createAppointmentService(appointmentDTO);</span>
+
+	/*
+	 * this will create new appointment (takes input in JSON)
+	 */
+	@PostMapping(path = &quot;/add&quot;, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity&lt;Message&gt; addAppointment(@RequestBody AppointmentDTO appointmentDTO)
+			throws PatientNotFoundException, DoctorNotFoundException {
+<span class="fc" id="L70">		PatientDTO patientDTO = restTemplate</span>
+<span class="fc" id="L71">				.getForEntity(server.getPatientServer() + &quot;/patient/&quot; + appointmentDTO.getPatientID(), PatientDTO.class)</span>
+<span class="fc" id="L72">				.getBody();</span>
+		
+
+<span class="pc bpc" id="L75" title="1 of 4 branches missed.">		if (patientDTO.getPatientId() != null &amp;&amp; patientDTO.getPatientId().equals(appointmentDTO.getPatientID())) {</span>
+
+<span class="fc" id="L77">			DoctorDTO doctorDTO = restTemplate.getForEntity(server.getClinicServer() + &quot;/clinic/doctor/&quot;+appointmentDTO.getDoctorID(),</span>
+<span class="fc" id="L78">					DoctorDTO.class).getBody();</span>
+<span class="fc" id="L79">			System.out.println(appointmentDTO.getDoctorID());</span>
+<span class="fc" id="L80">			System.out.println(doctorDTO.getDoctorID());</span>
+			//System.out.println(doctorDTO.getDoctorID().equals(appointmentDTO.getDoctorID()));
+			
+			
+
+<span class="pc bpc" id="L85" title="2 of 4 branches missed.">			if (doctorDTO.getDoctorID() != null &amp;&amp; (doctorDTO.getDoctorID().equals(appointmentDTO.getDoctorID()))){</span>
+<span class="fc" id="L86">				return appointmentService.createAppointmentService(appointmentDTO);</span>
+			} else {
+<span class="nc" id="L88">				throw new DoctorNotFoundException();</span>
+			} 
+ 
+		} else { 
+<span class="fc" id="L92">			throw new PatientNotFoundException();</span>
+		}
+
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -18,7 +18,7 @@ import com.demo.spring.util.ServerConfiguration;
 
 @EnableConfigurationProperties(ServerConfiguration.class)
 @RestController
-@RequestMapping("/patientDiagnostic")
+@RequestMapping("/clinic")
 public class PatientDiagnosticRestController {
 	@Autowired
 	PatientDiagnosticService patientDiagnosticService;
@@ -26,16 +26,13 @@ public class PatientDiagnosticRestController {
 	@Autowired
 	ServerConfiguration server;
 	
-	@Autowired
+	@Autowired 
 	RestTemplate restTemplate;
 
-	@PostMapping(path = "/save/{patientId}/{testId}")
-    public ResponseEntity<Message> addTestToPatient(@PathVariable("patientId") int patientId,
-            @PathVariable("testId") int testId) throws PatientNotFoundException, DiagnosticNotFoundException {
-        PatientDTO patientDTO = restTemplate
-                .getForEntity(server.getPatientServer()+"/patient/{patientId}", PatientDTO.class, patientId).getBody();
-        System.out.println(patientDTO.getPatientId());
-        if (patientDTO != null && patientDTO.getPatientId() == patientId) {
+	@PostMapping(path = "/patientDiagnostic/save/{testId}/{patientId}")
+    public ResponseEntity<Message> addTestToPatient(@PathVariable("testId") int testId,@PathVariable("patientId") int patientId ) throws PatientNotFoundException, DiagnosticNotFoundException {
+        PatientDTO patientDTO = restTemplate.getForEntity(server.getPatientServer()+"/patient/{patientId}", PatientDTO.class, patientId).getBody();
+        if (patientDTO.getPatientId() != null && patientDTO.getPatientId() == patientId) {
             return ResponseEntity.ok(patientDiagnosticService.addTestToPatient(patientId, testId));
         } else {
             throw new PatientNotFoundException();

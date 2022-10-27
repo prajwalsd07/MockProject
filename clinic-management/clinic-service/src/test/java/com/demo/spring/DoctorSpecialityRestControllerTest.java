@@ -34,67 +34,63 @@ class DoctorSpecialityRestControllerTest {
 
 	@Autowired
 	MockMvc mvc;
-	
+
 	@MockBean
 	DoctorSpecialityRepository doctorSpecialityRepository;
-	
+
 	@MockBean
 	DoctorRepository doctorRepository;
-	
-	
 
 	@Test
-    void testAddDoctorToSpecialitySuccess() throws Exception {
-		DoctorSpeciality doctorSpeciality = new DoctorSpeciality(1,101, 5);
-        ObjectMapper mapper = new ObjectMapper();
-        String doctorJson = mapper.writeValueAsString(doctorSpeciality);
-        when(doctorRepository.existsById(101)).thenReturn(true);
-        
-        mvc.perform(post("/speciality/addDoctor").content(doctorJson).contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.status").value("Doctor added to speciality"));
-    }
+	void testAddDoctorToSpecialitySuccess() throws Exception {
+		DoctorSpeciality doctorSpeciality = new DoctorSpeciality(1, 101, 5);
+		ObjectMapper mapper = new ObjectMapper();
+		String doctorJson = mapper.writeValueAsString(doctorSpeciality);
+		when(doctorRepository.existsById(101)).thenReturn(true);
+
+		mvc.perform(
+				post("/clinic/speciality/addDoctor").content(doctorJson).contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andDo(print()).andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(jsonPath("$.status").value("Doctor added to speciality"));
+	}
+
 	@Test
 	void testAddDoctorTOSpecialityFailure() throws Exception {
 		DoctorSpeciality doctorSpeciality = new DoctorSpeciality(105, 5);
 		ObjectMapper mapper = new ObjectMapper();
 		String doctorSpecialityJson = mapper.writeValueAsString(doctorSpeciality);
 		when(doctorRepository.existsById(doctorSpeciality.getDoctorID())).thenReturn(false);
-		
-		mvc.perform(post("/speciality/addDoctor").content(doctorSpecialityJson).contentType(MediaType.APPLICATION_JSON_VALUE))
-			.andDo(print())
-			.andExpect(status().isOk())
-			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-			.andExpect(jsonPath("$.status").value("Doctor Not Found"));
+
+		mvc.perform(post("/clinic/speciality/addDoctor").content(doctorSpecialityJson)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(jsonPath("$.status").value("Doctor Not Found"));
 	}
-	
+
 	@Test
 	void testRemoveDoctorSuccess() throws Exception {
 		DoctorSpeciality doctorSpeciality = new DoctorSpeciality(105, 5);
-		when(doctorSpecialityRepository.findById(101)).thenReturn(Optional.of(doctorSpeciality));
-		
-		mvc.perform(delete("/speciality/removeDoctor/101"))
-			.andDo(print())
-			.andExpect(status().isOk())
-			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-			.andExpect(jsonPath("$.status").value("Doctor Removed from Speciality"));
+		List<DoctorSpeciality> doctorSpecialityList = new ArrayList<>();
+		doctorSpecialityList.add(doctorSpeciality);
+		when(doctorSpecialityRepository.findByDoctorIdAndSpecialityId(105, 5)).thenReturn(doctorSpecialityList);
+
+		mvc.perform(delete("/clinic/speciality/removeDoctor/105/5")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(jsonPath("$.status").value("Doctor Removed from Speciality"));
 	}
 
 	@Test
 	void testRemoveDoctorfailure() throws Exception {
 		when(doctorSpecialityRepository.findById(101)).thenReturn(Optional.empty());
-		
-		mvc.perform(delete("/speciality/removeDoctor/101"))
-			.andDo(print())
-			.andExpect(status().isOk())
-			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-			.andExpect(jsonPath("$.status").value("Doctor does not have Speciality"));
+
+		mvc.perform(delete("/clinic/speciality/removeDoctor/101/4")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(jsonPath("$.status").value("Doctor does not have Speciality"));
 	}
 
 	@Test
-	void testlistDoctorinSpeciality() throws Exception {
+	void testlistDoctorinSpecialitySuccess() throws Exception {
 		DoctorSpeciality doctorSpeciality = new DoctorSpeciality(105, 5);
 		Doctor doctor = new Doctor(105, "bindu", "sp", "bindusp@gmail.com");
 		List<Doctor> doctorList = new ArrayList<>();
@@ -105,16 +101,31 @@ class DoctorSpecialityRestControllerTest {
 		String doctorJson = mapper.writeValueAsString(doctorList);
 		when(doctorSpecialityRepository.listDoctorInSpeciality(5)).thenReturn(list);
 		when(doctorRepository.findById(105)).thenReturn(Optional.of(doctor));
-		
-		mvc.perform(get("/speciality/list/5"))
-			.andDo(print())
-			.andExpect(status().isOk())
-			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-			.andExpect(content().json(doctorJson));
+
+		mvc.perform(get("/clinic/speciality/list/5")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(content().json(doctorJson));
+	}
+
+	@Test
+	void testlistDoctorinSpecialityFailure() throws Exception {
+		List<DoctorSpeciality> list = new ArrayList<>();
+		when(doctorSpecialityRepository.listDoctorInSpeciality(5)).thenReturn(list);
+		mvc.perform(get("/clinic/speciality/list/5")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(jsonPath("$.status").value("Speciality Not Found"));
 	}
 	
-	
+	@Test
+	void testlistDoctorinSpecialityFailureTwo() throws Exception {
+		DoctorSpeciality doctorSpeciality = new DoctorSpeciality(105, 5);
+		List<DoctorSpeciality> list = new ArrayList<>();
+		list.add(doctorSpeciality);
+		when(doctorSpecialityRepository.listDoctorInSpeciality(5)).thenReturn(list);
+		when(doctorRepository.findById(105)).thenReturn(Optional.empty());
+		mvc.perform(get("/clinic/speciality/list/5")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(jsonPath("$.status").value("Doctor Not Found"));
+	}
 
-	
-	
 }

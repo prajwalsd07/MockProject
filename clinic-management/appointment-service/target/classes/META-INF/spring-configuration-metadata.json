@@ -1,0 +1,30 @@
+{
+  "groups": [
+    {
+      "name": "",
+      "type": "com.demo.spring.ServerConfiguration",
+      "sourceType": "com.demo.spring.ServerConfiguration"
+    }
+  ],
+  "properties": [
+    {
+      "name": "appointment-server",
+      "type": "java.lang.String",
+      "sourceType": "com.demo.spring.ServerConfiguration",
+      "defaultValue": "http:\/\/localhost:8192"
+    },
+    {
+      "name": "clinic-server",
+      "type": "java.lang.String",
+      "sourceType": "com.demo.spring.ServerConfiguration",
+      "defaultValue": "http:\/\/localhost:8193"
+    },
+    {
+      "name": "patient-server",
+      "type": "java.lang.String",
+      "sourceType": "com.demo.spring.ServerConfiguration",
+      "defaultValue": "http:\/\/localhost:8191"
+    }
+  ],
+  "hints": []
+}
