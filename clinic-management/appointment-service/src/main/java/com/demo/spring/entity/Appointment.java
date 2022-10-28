@@ -2,24 +2,39 @@ package com.demo.spring.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "appointment")
 public class Appointment {
+
+	
 	@Id
-@Column(name="APPOINTMENT_ID")
+    @SequenceGenerator(sequenceName = "Appointment_sequence",initialValue = 100, name = "Appointment_Id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "Appointment_Id")
+	
+	@Column(name = "APPOINTMENT_ID")
 	private Integer appointmentID;
-	@Column(name="DOCTOR_ID")
+	@Column(name = "DOCTOR_ID")
 	private Integer doctorID;
-	@Column(name="PATIENT_ID")
+	@Column(name = "PATIENT_ID")
 	private Integer patientID;
-	@Column(name="DATE")
+	@Column(name = "DATE")
 	private String date;
 
 	public Appointment() {
 
+	}
+
+	public Appointment(Integer doctorID, Integer patientID, String date) {
+		super();
+		this.doctorID = doctorID;
+		this.patientID = patientID;
+		this.date = date;
 	}
 
 	public Appointment(Integer appointmentID, Integer doctorID, Integer patientID, String date) {
@@ -61,5 +76,4 @@ public class Appointment {
 		this.date = date;
 	}
 
-	
 }

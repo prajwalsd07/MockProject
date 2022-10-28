@@ -1,0 +1,16 @@
+server:
+  port: 8194
+spring:
+  #datasource:
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+   # password: root
+    #url: jdbc:mysql://localhost:3307/credentialdb
+    #username: root
+    
+  config:
+    import: optional:configserver:http://localhost:8888/
+  application:
+       name: api-gateway
+    
+  jpa:
+    show-sql: true

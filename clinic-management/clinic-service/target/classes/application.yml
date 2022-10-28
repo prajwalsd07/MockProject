@@ -1,11 +1,13 @@
 server:
   port: 8193
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    password: root
-    url: jdbc:mysql://localhost:3307/clinicdb
-    username: root
+  #datasource:
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #password: root
+    #url: jdbc:mysql://localhost:3307/clinicdb
+    #username: root
+  config:
+    import: optional:configserver:http://localhost:8888/
   application:
        name: clinic-service
     
@@ -13,3 +15,10 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    service-url :
+      defaultZone : ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}

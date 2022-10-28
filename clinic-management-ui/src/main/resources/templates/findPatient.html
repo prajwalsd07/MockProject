@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Find Patient</title>
+</head>
+<body>
+<form action="findPatient" method="get">
+<span>Enter Patient ID</span>
+<input type="text" name="id"><br>
+<input type="submit" name="Find">
+</form>
+
+<div th:switch="${patient}">
+
+	<div th:case="NULL">
+		<h1>No Data</h1>
+	</div>
+	<div th:case="*" style="margin-top:30px">
+		<table>
+			<tr>
+				<td>Patient ID</td>
+				<td><span th:text="${patient.patientId}"></span></td>
+			</tr>
+			<tr>
+				<td>First Name</td>
+				<td><span th:text="${patient.firstName}"></span></td>
+			</tr>
+			<tr>
+				<td>Last Name</td>
+				<td><span th:text="${patient.lastName}"></span></td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td><span th:text="${patient.email}"></span></td>
+			</tr>
+		</table>
+	</div>
+</div>
+</body>
+</html>

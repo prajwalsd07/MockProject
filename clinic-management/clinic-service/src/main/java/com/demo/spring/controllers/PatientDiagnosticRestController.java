@@ -16,9 +16,11 @@ import com.demo.spring.service.PatientDiagnosticService;
 import com.demo.spring.util.Message;
 import com.demo.spring.util.ServerConfiguration;
 
+import io.micrometer.core.annotation.Timed;
+
 @EnableConfigurationProperties(ServerConfiguration.class)
 @RestController
-@RequestMapping("/patientDiagnostic")
+@RequestMapping("/clinic")
 public class PatientDiagnosticRestController {
 	@Autowired
 	PatientDiagnosticService patientDiagnosticService;
@@ -26,15 +28,13 @@ public class PatientDiagnosticRestController {
 	@Autowired
 	ServerConfiguration server;
 	
-	@Autowired
+	@Autowired 
 	RestTemplate restTemplate;
-
-	@PostMapping(path = "/save/{testId}/{patientId}")
+	@Timed(value = "requests.add.test.patient")
+	@PostMapping(path = "/patientDiagnostic/save/{testId}/{patientId}")
     public ResponseEntity<Message> addTestToPatient(@PathVariable("testId") int testId,@PathVariable("patientId") int patientId ) throws PatientNotFoundException, DiagnosticNotFoundException {
         PatientDTO patientDTO = restTemplate.getForEntity(server.getPatientServer()+"/patient/{patientId}", PatientDTO.class, patientId).getBody();
-        System.out.println("ggggggfdgsgegedsgergerge");
-        System.out.println(patientDTO.getPatientId());
-        if (patientDTO != null && patientDTO.getPatientId() == patientId) {
+        if (patientDTO!=null && patientDTO.getPatientId() != null && patientDTO.getPatientId() == patientId) {
             return ResponseEntity.ok(patientDiagnosticService.addTestToPatient(patientId, testId));
         } else {
             throw new PatientNotFoundException();

@@ -1,0 +1,10 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+api-gateway,com.demo.spring.dto,CredentialsDTO,9,17,0,0,4,8,1,5,1,5
+api-gateway,com.demo.spring.controller,CredentialsController,6,45,0,0,1,7,1,4,1,4
+api-gateway,com.demo.spring.entity,Credentials,0,26,0,0,0,12,0,6,0,6
+api-gateway,com.demo.spring,ServerConfiguration,4,29,0,0,2,11,1,6,1,6
+api-gateway,com.demo.spring,ApiGatewayApplication,5,78,0,0,2,9,1,6,1,6
+api-gateway,com.demo.spring.service,CredentialsService,21,69,2,6,5,15,2,7,1,4
+api-gateway,com.demo.spring.exception,UserNameExistsException,0,9,0,0,0,2,0,2,0,2
+api-gateway,com.demo.spring.exception,UserNotFoundException,0,9,0,0,0,2,0,2,0,2
+api-gateway,com.demo.spring.util,Message,0,16,0,0,0,8,0,4,0,4

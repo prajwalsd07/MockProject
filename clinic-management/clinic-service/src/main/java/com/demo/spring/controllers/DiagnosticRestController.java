@@ -20,8 +20,10 @@ import com.demo.spring.exceptions.DiagnosticTestExistsException;
 import com.demo.spring.service.DiagnosticService;
 import com.demo.spring.util.Message;
 
+import io.micrometer.core.annotation.Timed;
+
 @RestController
-@RequestMapping("/diagnostic")
+@RequestMapping("/clinic")
 public class DiagnosticRestController {
 
 	@Autowired
@@ -30,7 +32,8 @@ public class DiagnosticRestController {
 	/*
 	this will add new test to the diagnostic table
 	*/
-	@PostMapping(path="/addTest" ,consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed(value = "requests.add.test")
+	@PostMapping(path="/diagnostic/addTest" ,consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Message> addTest(@RequestBody DiagnosticDTO DiagnosticDTO) throws DiagnosticTestExistsException{
 		return ResponseEntity.ok(diagnosticService.addTestService(DiagnosticDTO));
 	}
@@ -38,14 +41,16 @@ public class DiagnosticRestController {
 	/*
 	this will delete test from diagnostic table based on diagnostic-Id
 	*/
-	@DeleteMapping(path="/deleteTest/{id}" , produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed(value = "requests.delete.test")
+	@DeleteMapping(path="/diagnostic/deleteTest/{id}" , produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Message> deleteTest(@PathVariable("id") Integer id) throws DiagnosticNotFoundException{
 		return ResponseEntity.ok(diagnosticService.deleteTestService(id));
 	}
 	/*
 	this will list all the diagnostic tests
 	*/
-	@GetMapping(path="/list", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed(value = "requests.list.all.diagnostic")
+	@GetMapping(path="/diagnostic/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Diagnostic>> listAllDiagnostic() {
 			return ResponseEntity.ok(diagnosticService.listAllDiagnosticService());
 	}

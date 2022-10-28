@@ -30,36 +30,38 @@ import com.demo.spring.util.Message;
 	}
 
 	public ResponseEntity&lt;Message&gt; savePatientService(PatientDTO patientDTO) {
-<span class="fc bfc" id="L33" title="All 2 branches covered.">		if (patientRepo.existsById(patientDTO.getPatientId())) {</span>
-<span class="fc" id="L34">			return ResponseEntity.ok(new Message(&quot;Patient already exists&quot;));</span>
+		
+<span class="fc" id="L34">		Optional&lt;Patient&gt; patientex = patientRepo.findByEmail(patientDTO.getEmail());</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">		if (patientex.isPresent()) {</span>
+<span class="fc" id="L36">			return ResponseEntity.ok(new Message(&quot;Patient already exists&quot;));</span>
 		} else {
-<span class="fc" id="L36">			Patient patient = new Patient(patientDTO.getPatientId(), patientDTO.getFirstName(),</span>
-<span class="fc" id="L37">					patientDTO.getLastName(), patientDTO.getEmail());</span>
-<span class="fc" id="L38">			patientRepo.save(patient);</span>
-<span class="fc" id="L39">			return ResponseEntity.ok(new Message(&quot;Patient saved&quot;));</span>
+<span class="fc" id="L38">			Patient patient = new Patient(patientDTO.getFirstName(),</span>
+<span class="fc" id="L39">					patientDTO.getLastName(), patientDTO.getEmail());</span>
+<span class="fc" id="L40">			patientRepo.save(patient);</span>
+<span class="fc" id="L41">			return ResponseEntity.ok(new Message(&quot;Patient saved&quot;));</span>
 		}
 
 	}
 
 	public ResponseEntity&lt;Message&gt; updatePatientService(PatientDTO patientDTO) {
-<span class="fc bfc" id="L45" title="All 2 branches covered.">		if (patientRepo.existsById(patientDTO.getPatientId())) {</span>
-<span class="fc" id="L46">			Patient patient = new Patient(patientDTO.getPatientId(), patientDTO.getFirstName(),</span>
-<span class="fc" id="L47">					patientDTO.getLastName(), patientDTO.getEmail());</span>
-<span class="fc" id="L48">			patientRepo.save(patient);</span>
-<span class="fc" id="L49">			return ResponseEntity.ok(new Message(&quot;Patient updated&quot;));</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">		if (patientRepo.existsById(patientDTO.getPatientId())) {</span>
+<span class="fc" id="L48">			Patient patient = new Patient(patientDTO.getFirstName(),</span>
+<span class="fc" id="L49">					patientDTO.getLastName(), patientDTO.getEmail());</span>
+<span class="fc" id="L50">			patientRepo.save(patient);</span>
+<span class="fc" id="L51">			return ResponseEntity.ok(new Message(&quot;Patient updated&quot;));</span>
 		} else {
-<span class="fc" id="L51">			return ResponseEntity.ok(new Message(&quot;Patient does not exists&quot;));</span>
+<span class="fc" id="L53">			return ResponseEntity.ok(new Message(&quot;Patient does not exists&quot;));</span>
 		}
 
 	}
 
 	public ResponseEntity&lt;List&lt;Patient&gt;&gt; findPatientByFirstNameService(String firstName)
 			throws PatientNotFoundException {
-<span class="fc" id="L58">		List&lt;Patient&gt; patientList = patientRepo.findAllByFirstName(firstName);</span>
-<span class="fc bfc" id="L59" title="All 2 branches covered.">		if (patientList.isEmpty()) {</span>
-<span class="fc" id="L60">			throw new PatientNotFoundException();</span>
+<span class="fc" id="L60">		List&lt;Patient&gt; patientList = patientRepo.findAllByFirstName(firstName);</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">		if (patientList.isEmpty()) {</span>
+<span class="fc" id="L62">			throw new PatientNotFoundException();</span>
 		} else {
-<span class="fc" id="L62">			return ResponseEntity.ok(patientList);</span>
+<span class="fc" id="L64">			return ResponseEntity.ok(patientList);</span>
 		}
 	}
 }

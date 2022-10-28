@@ -1,0 +1,4 @@
+com\demo\spring\entity\CredentialsTest.class
+com\demo\spring\ApplicationTest.class
+com\demo\spring\dto\CredentialsDTOTest.class
+com\demo\spring\CredentialsControllerTest.class

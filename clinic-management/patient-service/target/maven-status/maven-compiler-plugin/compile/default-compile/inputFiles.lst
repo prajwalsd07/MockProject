@@ -1,8 +1,8 @@
-C:\Mock_project\clinic-management\patient-service\src\main\java\com\demo\spring\PatientApplication.java
-C:\Mock_project\clinic-management\patient-service\src\main\java\com\demo\spring\repositories\PatientRepository.java
-C:\Mock_project\clinic-management\patient-service\src\main\java\com\demo\spring\dto\PatientDTO.java
-C:\Mock_project\clinic-management\patient-service\src\main\java\com\demo\spring\service\PatientService.java
-C:\Mock_project\clinic-management\patient-service\src\main\java\com\demo\spring\util\Message.java
-C:\Mock_project\clinic-management\patient-service\src\main\java\com\demo\spring\controllers\PatientRestController.java
-C:\Mock_project\clinic-management\patient-service\src\main\java\com\demo\spring\exceptions\PatientNotFoundException.java
-C:\Mock_project\clinic-management\patient-service\src\main\java\com\demo\spring\entity\Patient.java
+C:\clinic_management\clinic-management\patient-service\src\main\java\com\demo\spring\controllers\PatientRestController.java
+C:\clinic_management\clinic-management\patient-service\src\main\java\com\demo\spring\service\PatientService.java
+C:\clinic_management\clinic-management\patient-service\src\main\java\com\demo\spring\dto\PatientDTO.java
+C:\clinic_management\clinic-management\patient-service\src\main\java\com\demo\spring\entity\Patient.java
+C:\clinic_management\clinic-management\patient-service\src\main\java\com\demo\spring\util\Message.java
+C:\clinic_management\clinic-management\patient-service\src\main\java\com\demo\spring\PatientApplication.java
+C:\clinic_management\clinic-management\patient-service\src\main\java\com\demo\spring\repositories\PatientRepository.java
+C:\clinic_management\clinic-management\patient-service\src\main\java\com\demo\spring\exceptions\PatientNotFoundException.java

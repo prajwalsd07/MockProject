@@ -1,8 +1,14 @@
 com\demo\spring\entity\Appointment.class
 com\demo\spring\service\AppointmentService.class
-com\demo\spring\util\Message.class
+com\demo\spring\exceptions\DoctorNotFoundException.class
 com\demo\spring\controllers\AppointmentRestController.class
 com\demo\spring\exceptions\AppointmentNotFoundException.class
 com\demo\spring\repositories\AppointmentRepository.class
+com\demo\spring\exceptions\PatientNotFoundException.class
 com\demo\spring\dto\AppointmentDTO.class
+META-INF\spring-configuration-metadata.json
+com\demo\spring\dto\DoctorDTO.class
+com\demo\spring\dto\PatientDTO.class
+com\demo\spring\util\Message.class
+com\demo\spring\ServerConfiguration.class
 com\demo\spring\AppointmentApplication.class

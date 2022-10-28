@@ -21,8 +21,10 @@ import com.demo.spring.exceptions.SpecialityNotFoundException;
 import com.demo.spring.service.DoctorSpecialityService;
 import com.demo.spring.util.Message;
 
+import io.micrometer.core.annotation.Timed;
+
 @RestController
-@RequestMapping("/speciality")
+@RequestMapping("/clinic")
 public class DoctorSpecialityRestController {
 
 	@Autowired
@@ -31,7 +33,8 @@ public class DoctorSpecialityRestController {
 	/*
 	this will list all the doctors in a particular speciality
 	*/
-	@GetMapping(path = "/list/{specialityID}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed(value = "requests.list.doctor.speciality")
+	@GetMapping(path = "/speciality/list/{specialityID}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Doctor>> listDoctorinSpeciality(@PathVariable("specialityID") Integer specialityID) throws SpecialityNotFoundException, DoctorNotFoundException {
 		return ResponseEntity.ok(doctorSpecialityService.listDoctorInSpeciality(specialityID));
 	}
@@ -39,7 +42,8 @@ public class DoctorSpecialityRestController {
 	/*
 	this will add new doctor to a speciality
 	*/
-	@PostMapping(path="/addDoctor" ,consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Timed(value = "requests.add.doctor.speciality")
+	@PostMapping(path="/speciality/addDoctor" ,consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Message> addDoctorToSpeciality(@RequestBody DoctorSpecialityDTO doctorSpecialityDTO) throws DoctorNotFoundException{
 		return ResponseEntity.ok(doctorSpecialityService.addDoctorService(doctorSpecialityDTO));
     }
@@ -47,9 +51,10 @@ public class DoctorSpecialityRestController {
 	/*
 	this will remove doctor from speciality
 	*/
-	@DeleteMapping(path = "/removeDoctor/{doctorID}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Message> removeDoctorFromSpeciality(@PathVariable("doctorID") Integer id) throws DoctorSpecialityNotFoundException {
-		return ResponseEntity.ok(doctorSpecialityService.removeDoctorFromSpecialityService(id));
+	@Timed(value = "requests.remove.doctor.speciality")
+	@DeleteMapping(path = "/peciality/removeDoctor/{doctorID}/{specialityID}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Message> removeDoctorFromSpeciality(@PathVariable("doctorID") Integer doctorId,@PathVariable("specialityID") Integer specialityId) throws DoctorSpecialityNotFoundException {
+		return ResponseEntity.ok(doctorSpecialityService.removeDoctorFromSpecialityService(doctorId,specialityId));
 	}
 
 }

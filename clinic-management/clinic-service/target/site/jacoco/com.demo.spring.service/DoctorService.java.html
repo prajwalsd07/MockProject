@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DoctorService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">clinic-service</a> &gt; <a href="index.source.html" class="el_package">com.demo.spring.service</a> &gt; <span class="el_source">DoctorService.java</span></div><h1>DoctorService.java</h1><pre class="source lang-java linenums">package com.demo.spring.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.demo.spring.dto.DoctorDTO;
+import com.demo.spring.entity.Doctor;
+import com.demo.spring.exceptions.DoctorNotFoundException;
+import com.demo.spring.repositories.DoctorRepository;
+import com.demo.spring.util.Message;
+
+@Service
+<span class="fc" id="L17">public class DoctorService {</span>
+
+	@Autowired
+	DoctorRepository doctorRepository;
+
+	public List&lt;Doctor&gt; listAllDoctorService() {
+<span class="fc" id="L23">		return doctorRepository.findAll();</span>
+	}
+
+	public ResponseEntity&lt;Doctor&gt; findDoctorService(int doctorId) throws DoctorNotFoundException {
+<span class="fc" id="L27">		Optional&lt;Doctor&gt; doctorOp = doctorRepository.findById(doctorId);</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">		if (doctorOp.isPresent()) {</span>
+<span class="fc" id="L29">			return ResponseEntity.ok(doctorOp.get());</span>
+		} else {
+<span class="fc" id="L31">			throw new DoctorNotFoundException();</span>
+		}
+
+	}
+	
+public ResponseEntity&lt;Message&gt; saveDoctorService(DoctorDTO doctorDTO) {
+		
+<span class="fc" id="L38">		Optional&lt;Doctor&gt; doctorexists = doctorRepository.findByEmail(doctorDTO.getEmail());</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">		if (doctorexists.isPresent()) {</span>
+<span class="fc" id="L40">			return ResponseEntity.ok(new Message(&quot;Doctor already exists&quot;));</span>
+		} else {
+<span class="fc" id="L42">			Doctor doctor = new Doctor(doctorDTO.getDoctorID(),doctorDTO.getFirstName(),</span>
+<span class="fc" id="L43">					doctorDTO.getLastName(), doctorDTO.getEmail());</span>
+<span class="fc" id="L44">			doctorRepository.save(doctor);</span>
+<span class="fc" id="L45">			return ResponseEntity.ok(new Message(&quot;Doctor saved&quot;));</span>
+		}
+
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

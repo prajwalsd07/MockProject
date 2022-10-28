@@ -1,0 +1,10 @@
+C:\clinic_management\clinic-management\api-gateway\src\main\java\com\demo\spring\ServerConfiguration.java
+C:\clinic_management\clinic-management\api-gateway\src\main\java\com\demo\spring\controller\CredentialsController.java
+C:\clinic_management\clinic-management\api-gateway\src\main\java\com\demo\spring\service\CredentialsService.java
+C:\clinic_management\clinic-management\api-gateway\src\main\java\com\demo\spring\util\Message.java
+C:\clinic_management\clinic-management\api-gateway\src\main\java\com\demo\spring\exception\UserNameExistsException.java
+C:\clinic_management\clinic-management\api-gateway\src\main\java\com\demo\spring\ApiGatewayApplication.java
+C:\clinic_management\clinic-management\api-gateway\src\main\java\com\demo\spring\repository\CredentialsRepository.java
+C:\clinic_management\clinic-management\api-gateway\src\main\java\com\demo\spring\entity\Credentials.java
+C:\clinic_management\clinic-management\api-gateway\src\main\java\com\demo\spring\dto\CredentialsDTO.java
+C:\clinic_management\clinic-management\api-gateway\src\main\java\com\demo\spring\exception\UserNotFoundException.java
