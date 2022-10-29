@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.demo.spring.controllers"},{"l":"com.demo.spring.exceptions"},{"l":"com.demo.spring.repositories"},{"l":"com.demo.spring.service"},{"l":"com.demo.spring.util"}];updateSearchResults();

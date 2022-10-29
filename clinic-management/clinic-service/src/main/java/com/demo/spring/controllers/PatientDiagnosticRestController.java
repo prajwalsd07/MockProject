@@ -24,20 +24,25 @@ import io.micrometer.core.annotation.Timed;
 public class PatientDiagnosticRestController {
 	@Autowired
 	PatientDiagnosticService patientDiagnosticService;
-	
+
 	@Autowired
 	ServerConfiguration server;
-	
-	@Autowired 
+
+	@Autowired
 	RestTemplate restTemplate;
-	@Timed(value = "requests.add.test.patient")
+
+	@Timed(value = "requests.patientdiag.save")
 	@PostMapping(path = "/patientDiagnostic/save/{testId}/{patientId}")
-    public ResponseEntity<Message> addTestToPatient(@PathVariable("testId") int testId,@PathVariable("patientId") int patientId ) throws PatientNotFoundException, DiagnosticNotFoundException {
-        PatientDTO patientDTO = restTemplate.getForEntity(server.getPatientServer()+"/patient/{patientId}", PatientDTO.class, patientId).getBody();
-        if (patientDTO!=null && patientDTO.getPatientId() != null && patientDTO.getPatientId() == patientId) {
-            return ResponseEntity.ok(patientDiagnosticService.addTestToPatient(patientId, testId));
-        } else {
-            throw new PatientNotFoundException();
-        }
-    }
+	public ResponseEntity<Message> addTestToPatient(@PathVariable("testId") int testId,
+			@PathVariable("patientId") int patientId)
+			throws PatientNotFoundException, DiagnosticNotFoundException, NullPointerException {
+		PatientDTO patientDTO = restTemplate
+				.getForEntity(server.getPatientServer() + "/patient/{patientId}", PatientDTO.class, patientId)
+				.getBody();
+		if (patientDTO != null && patientDTO.getPatientId() != null && patientDTO.getPatientId() == patientId) {
+			return ResponseEntity.ok(patientDiagnosticService.addTestToPatient(patientId, testId));
+		} else {
+			throw new PatientNotFoundException();
+		}
+	}
 }

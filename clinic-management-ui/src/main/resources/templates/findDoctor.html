@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Find Doctor</title>
+</head>
+<body>
+<form action="findDoctor1" method="get">
+<span>Enter Doctor ID</span>
+<input type="text" name="doctorID"><br>
+<input type="submit" name="Find">
+</form>
+
+<div th:switch="${doctor}">
+
+	<div th:case="NULL">
+		<h1></h1>
+	</div>
+	<div th:case="*" style="margin-top:30px">
+		<table>
+			<tr>
+				<td>Doctor ID</td>
+				<td><span th:text="${doctor.doctorID}"></span></td>
+			</tr>
+			<tr>
+				<td>First Name</td>
+				<td><span th:text="${doctor.firstName}"></span></td>
+			</tr>
+			<tr>
+				<td>Last Name</td>
+				<td><span th:text="${doctor.lastName}"></span></td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td><span th:text="${doctor.email}"></span></td>
+			</tr>
+		</table>
+	</div>
+</div>
+</body>
+</html>

@@ -37,28 +37,4 @@ public class CredentialsService {
 			return new Message("User Updated");
 		}
 	}
-
-	public Message addUserService(Credentials credentials) throws UserNameExistsException {
-		if (credentialRepository.existsById(credentials.getUserName())) {
-			throw new UserNameExistsException();
-
-		} else {
-			credentialRepository.save(credentials);
-			return new Message("User Added");
-		}
-
-	}
-
-	public Message removeUserService(String userName) throws UserNotFoundException {
-		Optional<Credentials> credentialList = credentialRepository.findById(userName);
-		if (credentialList.isEmpty()) {
-			throw new UserNotFoundException();
-		} else {
-
-			credentialRepository.deleteById(userName);
-
-			return new Message("User Removed");
-		}
-
-	}
 }

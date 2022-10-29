@@ -19,6 +19,14 @@ public class ClinicManagementUiApplication implements WebMvcConfigurer {
 	}
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
+		
+		registry.addViewController("/patient").setViewName("homePatient");
+		registry.addViewController("/doctor").setViewName("homeDoctor");
+		registry.addViewController("/appointment").setViewName("homeAppointment");
+		registry.addViewController("/diagnostic").setViewName("homeDiagnostic");
+		registry.addViewController("/").setViewName("home");
+		
+		
 		registry.addViewController("/patient/find").setViewName("findPatient");
 		registry.addViewController("/patient/list").setViewName("listPatient");
 		registry.addViewController("/patient/save").setViewName("savePatient");
@@ -35,10 +43,23 @@ public class ClinicManagementUiApplication implements WebMvcConfigurer {
 		registry.addViewController("/diagnostic/add").setViewName("saveDiagnostic");
 		registry.addViewController("/diagnostic/list").setViewName("listDiagnostic");
 		registry.addViewController("/diagnostic/delete1").setViewName("deleteDiagnostic");
+		registry.addViewController("/diagnostic/addTestPatient").setViewName("saveDiagnosticPatient");
 		registry.addViewController("/diagnostic").setViewName("homeDiagnostic");
 	
 	
-	
+		
+		registry.addViewController("/doctor-find").setViewName("findDoctor");
+		registry.addViewController("/doctor/list").setViewName("listDoctor");
+		registry.addViewController("/doctor").setViewName("homeDoctor");
+		
+		registry.addViewController("/doctorSpeciality/list").setViewName("listDoctorSpeciality");
+		registry.addViewController("/doctorSpeciality/add").setViewName("saveDoctorSpeciality");
+		registry.addViewController("/doctorSpeciality-remove").setViewName("deleteDoctorSpeciality");
+		
+		registry.addViewController("/cliniclogin").setViewName("login");
+		registry.addViewController("/updatePassword").setViewName("updateLogin");
+		
+		 registry.addViewController("/error").setViewName("error");
 	
 	}
 

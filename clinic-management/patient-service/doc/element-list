@@ -1,0 +1,8 @@
+com.demo.spring
+com.demo.spring.controllers
+com.demo.spring.dto
+com.demo.spring.entity
+com.demo.spring.exceptions
+com.demo.spring.repositories
+com.demo.spring.service
+com.demo.spring.util

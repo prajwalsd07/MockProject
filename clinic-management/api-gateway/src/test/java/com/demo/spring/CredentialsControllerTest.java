@@ -68,25 +68,4 @@ class CredentialsControllerTest {
         ResponseEntity<Message> resp2 = testRestTemplate.exchange("http://localhost:"+port+"/login/update",HttpMethod.PATCH,req,Message.class);
         Assertions.assertEquals("User Not Found",resp2.getBody().getStatus());
     }
-	
-	@Test
-    void testaddUserFailure() throws Exception {
-        Credentials credentials = new Credentials("prajwal", "4321");
-        
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-type", MediaType.APPLICATION_JSON_VALUE);
-        HttpEntity<Credentials> req = new HttpEntity<>(credentials, headers);
-        ResponseEntity<Message> resp2 = testRestTemplate.exchange("http://localhost:"+port+"/login/addUser",HttpMethod.POST,req,Message.class);
-        Assertions.assertEquals("User Name already used",resp2.getBody().getStatus());
-    }
-	@Test
-    void testaddUserSuccess() throws Exception {
-        Credentials credentials = new Credentials("harshith", "4321");
-        
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-type", MediaType.APPLICATION_JSON_VALUE);
-        HttpEntity<Credentials> req = new HttpEntity<>(credentials, headers);
-        ResponseEntity<Message> resp2 = testRestTemplate.exchange("http://localhost:"+port+"/login/addUser",HttpMethod.POST,req,Message.class);
-        Assertions.assertEquals("User Added",resp2.getBody().getStatus()); 
-    }
 }

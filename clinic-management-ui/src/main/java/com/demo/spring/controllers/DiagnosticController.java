@@ -49,7 +49,6 @@ public class DiagnosticController {
 					HttpMethod.DELETE, req, String.class);
 			mv.addObject("msg", response.getBody());
 			mv.setViewName("findpatientfailure");
-			System.out.println(response.getBody());
 		return mv;
 
 	}

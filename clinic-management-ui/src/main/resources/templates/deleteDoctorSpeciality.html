@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Delete Diagnostic</title>
+</head>
+<body>
+    <form action="removedoctor" method="post">
+        <span>Enter Doctor ID</span> <input type="text" name="doctorID"><br>
+         <span>Enter Speciality ID</span> <input type="text" name="specialityID"><br>
+        <input type="submit" name="delete">
+    </form>
+    <div th:text="${response}"
+                            style="background-color: rgba(255, 0, 0, 0.2); max-width: 50%; margin-left: 15%; text-align: center"></div>
+    </body>
+</html>

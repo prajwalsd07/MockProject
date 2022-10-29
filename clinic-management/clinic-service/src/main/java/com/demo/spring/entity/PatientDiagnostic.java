@@ -20,24 +20,24 @@ public class PatientDiagnostic {
     private Integer id;
 	
 	@Column(name = "DIAGNOSTIC_ID")
-	private Integer PatientID;
+	private Integer patientID;
 	@Column(name = "PATIENT_ID")
-	private Integer DiagnosticID;
+	private Integer diagnosticID;
 
 	public PatientDiagnostic() {
 	}
 
 	public PatientDiagnostic(Integer patientID, Integer diagnosticID) {
 		super();
-		PatientID = patientID;
-		DiagnosticID = diagnosticID;
+		this.patientID = patientID;
+		this.diagnosticID = diagnosticID;
 	}
 
 	public PatientDiagnostic(Integer id, Integer patientID, Integer diagnosticID) {
 		super();
 		this.id = id;
-		PatientID = patientID;
-		DiagnosticID = diagnosticID;
+		this.patientID = patientID;
+		this.diagnosticID = diagnosticID;
 	}
 
 	
@@ -51,19 +51,18 @@ public class PatientDiagnostic {
 	}
 
 	public Integer getPatientID() {
-		return PatientID;
+		return patientID;
 	}
 
 	public void setPatientID(Integer patientID) {
-		PatientID = patientID;
+		this.patientID = patientID;
 	}
 
 	public Integer getDiagnosticID() {
-		return DiagnosticID;
+		return diagnosticID;
 	}
 
 	public void setDiagnosticID(Integer diagnosticID) {
-		DiagnosticID = diagnosticID;
 	}
 
 }

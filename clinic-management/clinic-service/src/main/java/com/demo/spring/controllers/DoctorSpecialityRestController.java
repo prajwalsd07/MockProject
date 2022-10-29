@@ -52,7 +52,7 @@ public class DoctorSpecialityRestController {
 	this will remove doctor from speciality
 	*/
 	@Timed(value = "requests.remove.doctor.speciality")
-	@DeleteMapping(path = "/peciality/removeDoctor/{doctorID}/{specialityID}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path = "/speciality/removeDoctor/{doctorID}/{specialityID}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Message> removeDoctorFromSpeciality(@PathVariable("doctorID") Integer doctorId,@PathVariable("specialityID") Integer specialityId) throws DoctorSpecialityNotFoundException {
 		return ResponseEntity.ok(doctorSpecialityService.removeDoctorFromSpecialityService(doctorId,specialityId));
 	}

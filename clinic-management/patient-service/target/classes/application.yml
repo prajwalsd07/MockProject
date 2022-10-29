@@ -33,3 +33,8 @@ management:
         include:
         - health
         - prometheus
+        
+        
+logging:
+  file:
+    name: patient-service.log

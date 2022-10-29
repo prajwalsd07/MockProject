@@ -28,15 +28,15 @@ public class PatientDiagnosticService {
 	@Autowired
 	PatientDiagnosticRepository patientDiagnosticRepository;
 
-	public Message addTestToPatient(int patientId,int testId) throws DiagnosticNotFoundException {
+	public Message addTestToPatient(int patientId, int testId) throws DiagnosticNotFoundException {
 		Optional<Diagnostic> diagnosticOp = diagnosticRepository.findById(testId);
-        if(diagnosticOp.isPresent()) {
-            PatientDiagnostic patientDiagnostic=new PatientDiagnostic(testId,patientId);
-            patientDiagnosticRepository.save(patientDiagnostic);
-            return new Message("Test added successfully");
-        }else {
-            throw new DiagnosticNotFoundException();
-        }
-        
-    }
+		if (diagnosticOp.isPresent()) {
+			PatientDiagnostic patientDiagnostic = new PatientDiagnostic(testId, patientId);
+			patientDiagnosticRepository.save(patientDiagnostic);
+			return new Message("Test added successfully");
+		} else {
+			throw new DiagnosticNotFoundException();
+		}
+
+	}
 }

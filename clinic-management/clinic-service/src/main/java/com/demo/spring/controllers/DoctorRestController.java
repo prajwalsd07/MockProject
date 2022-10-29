@@ -45,11 +45,7 @@ public class DoctorRestController {
 	public ResponseEntity<Doctor> findDoctor(@PathVariable("doctorId") int doctorId) throws DoctorNotFoundException {
 		return doctorService.findDoctorService(doctorId);
 	}
-	@Timed(value = "requests.save.doctor")
-	@PostMapping(path = "/doctor/save", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Message> saveDoctor(@RequestBody DoctorDTO doctorDTO) {
-		return doctorService.saveDoctorService(doctorDTO) ;
-	}
+	
 
 	
 }

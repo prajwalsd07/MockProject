@@ -3,6 +3,8 @@ package com.demo.spring.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,14 +18,18 @@ import com.demo.spring.util.Message;
 @Service
 public class PatientService {
 
+	
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
 	@Autowired
 	PatientRepository patientRepo;
 
 	public ResponseEntity<Patient> findPatientService(int patientId) throws PatientNotFoundException {
 		Optional<Patient> patientOp = patientRepo.findById(patientId);
 		if (patientOp.isPresent()) {
+			logger.info("patient object succesfully returned with patientId {}",patientId);
 			return ResponseEntity.ok(patientOp.get());
 		} else {
+			logger.error("Exception : Patient Not Found Exception thrown");
 			throw new PatientNotFoundException();
 		}
 

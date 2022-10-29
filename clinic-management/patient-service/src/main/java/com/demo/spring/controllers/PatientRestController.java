@@ -2,6 +2,8 @@ package com.demo.spring.controllers;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,10 @@ import io.swagger.v3.oas.annotations.OpenAPI30;
 @RequestMapping("/patient")
 @OpenAPI30
 public class PatientRestController {
+	
+	
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
+	
 	@Autowired
 	PatientService patientService;
 
@@ -35,9 +41,16 @@ public class PatientRestController {
 	/*
 		this will take patientId as input and returns Patient Details
 		*/
+	/**
+	 * this method will find patient with patientid
+	 * @param patientId
+	 * @return
+	 * @throws PatientNotFoundException
+	 */
 	@GetMapping(path = "/{patientId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Patient> findPatient(@PathVariable("patientId") int patientId)
 			throws PatientNotFoundException {
+		logger.info("this method had a call to patient service");
 		return patientService.findPatientService(patientId);
 	}
 	/*

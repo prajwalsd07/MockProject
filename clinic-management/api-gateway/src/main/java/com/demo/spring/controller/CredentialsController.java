@@ -46,15 +46,4 @@ public class CredentialsController {
 		return ResponseEntity.ok(credentialsService.updateUser(credential));
 	}
 
-	@PostMapping(path = "/addUser", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Message> addUser(@RequestBody CredentialsDTO credentialsDTO) throws UserNameExistsException {
-		Credentials credential = new Credentials(credentialsDTO.getUserName(), credentialsDTO.getPassword());
-		return ResponseEntity.ok(credentialsService.addUserService(credential));
-	}
-
-	@DeleteMapping(path = "/removeUser/{userName}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Message> removeUser(@PathVariable("userName") String userName)
-			throws UserNotFoundException {
-		return ResponseEntity.ok(credentialsService.removeUserService(userName));
-	}
 }

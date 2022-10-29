@@ -82,30 +82,5 @@ class DoctorRestControllerTest {
 
 	}
 
-	 @Test
-    void testSavePatientSuccess() throws Exception {
-		 
-		 Doctor doctor = new Doctor(105, "bindu", "sp", "bindusp@gmail.com");
-		 ObjectMapper mapper = new ObjectMapper();
-        String doctorJson = mapper.writeValueAsString(doctor);
-        when(doctorRepository.findByEmail("bindusp@gmail.com")).thenReturn(Optional.empty());
-        mvc.perform(post("/clinic/doctor/save").content(doctorJson).contentType(MediaType.APPLICATION_JSON_VALUE))
-        .andDo(print())
-        .andExpect(status().isOk())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-        .andExpect(jsonPath("$.status").value("Doctor saved"));
-    }
-	 
-	 @Test
-     void testSavePatientFailure() throws Exception {
-		 Doctor doctor = new Doctor(105, "bindu", "sp", "bindusp@gmail.com");
-		 ObjectMapper mapper = new ObjectMapper();
-        String doctorJson = mapper.writeValueAsString(doctor);
-        when(doctorRepository.findByEmail("bindusp@gmail.com")).thenReturn(Optional.of(doctor));
-        mvc.perform(post("/clinic/doctor/save").content(doctorJson).contentType(MediaType.APPLICATION_JSON_VALUE))
-        .andDo(print())
-        .andExpect(status().isOk())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-         .andExpect(jsonPath("$.status").value("Doctor already exists"));
-     }
+	
 }

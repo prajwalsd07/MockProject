@@ -21,57 +21,62 @@ import com.demo.spring.dto.PatientDTO;
 
 @Controller
 public class AppointmentController {
-	
+
 	@Autowired
 	RestTemplate restTemplate;
-	
-	
+
 	@GetMapping(path = "/appointment/listappointment")
 	public ModelAndView findAll() {
 		ModelAndView mv = new ModelAndView();
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<Void> req = new HttpEntity<>(headers);
-		ResponseEntity<List<AppointmentDTO>> response = restTemplate.exchange("http://localhost:8194/appointment/list", HttpMethod.GET, req, new ParameterizedTypeReference<List<AppointmentDTO>>(){});
-		mv.addObject("appointmentlist",response.getBody());
+		ResponseEntity<List<AppointmentDTO>> response = restTemplate.exchange("http://localhost:8194/appointment/list",
+				HttpMethod.GET, req, new ParameterizedTypeReference<List<AppointmentDTO>>() {
+				});
+		mv.addObject("appointmentlist", response.getBody());
 		mv.setViewName("listAppointment");
 		return mv;
 	}
-	
-	@PostMapping(path="/appointment/save")
-    public ModelAndView saveAppointment(AppointmentDTO appointmentDTO) {
-        ModelAndView mv = new ModelAndView();
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
-        HttpEntity<AppointmentDTO> req = new HttpEntity<>(appointmentDTO,headers);
-        ResponseEntity<String> response = restTemplate.exchange("http://localhost:8194/appointment/add", HttpMethod.POST, req, String.class);
-        
-        mv.addObject("response",response.getBody());
-        mv.setViewName("savepatientsuccess");
-        return mv;
-    }
-	
+
+	@PostMapping(path = "/appointment/save")
+	public ModelAndView saveAppointment(AppointmentDTO appointmentDTO) {
+		ModelAndView mv = new ModelAndView();
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		HttpEntity<AppointmentDTO> req = new HttpEntity<>(appointmentDTO, headers);
+		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8194/appointment/add",
+				HttpMethod.POST, req, String.class);
+
+		mv.addObject("response", response.getBody());
+		mv.setViewName("savepatientsuccess");
+		return mv;
+	}
+
 	@GetMapping(path = "/appointment/listByDate")
-	public ModelAndView listAppointmentByDate(@RequestParam(name = "doctorID", required = true) int doctorID,@RequestParam(name = "date", required = true) String date) {
+	public ModelAndView listAppointmentByDate(@RequestParam(name = "doctorID", required = true) int doctorID,
+			@RequestParam(name = "date", required = true) String date) {
 		ModelAndView mv = new ModelAndView();
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<Void> request = new HttpEntity<>(headers);
-		ResponseEntity<List<AppointmentDTO>> response = restTemplate.exchange(
-				"http://localhost:8194/appointment/list/"+doctorID+"/"+date , HttpMethod.GET, request,
-				new ParameterizedTypeReference<List<AppointmentDTO>>() {
-				});
-
-		if (response.getBody() != null) {
+		String str = restTemplate.exchange("http://localhost:8194/appointment/listByDate/"+doctorID +"/"+ date,
+				HttpMethod.GET, request, String.class).getBody();
+System.out.println(str);
+		if (str != null && str.equals("{\"status\":\"There are no Appointments\"}")) {
+			mv.addObject("msg", "There are no Appointments");
+			mv.setViewName("findpatientfailure");
+			return mv;
+		} else {
+			ResponseEntity<List<AppointmentDTO>> response = restTemplate.exchange(
+					"http://localhost:8194/appointment/listByDate/" + doctorID + "/" + date, HttpMethod.GET, request,
+					new ParameterizedTypeReference<List<AppointmentDTO>>() {
+					});
+			
+			System.out.println(response.getBody());
 			mv.addObject("appointmentList", response.getBody());
 			mv.setViewName("listAppointmentDate");
-		} else {
-			
-			ResponseEntity<String> response3 = restTemplate.exchange("http://localhost:8194/appointment/listByDate/"+doctorID+"/"+date ,
-					HttpMethod.GET, request, String.class);
-			mv.addObject("response", response3.getBody());
-			mv.setViewName("savepatientsuccess");
+			return mv;
 		}
-		return mv;
 	}
 }

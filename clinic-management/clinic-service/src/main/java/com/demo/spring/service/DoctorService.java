@@ -33,17 +33,5 @@ public class DoctorService {
 
 	}
 	
-public ResponseEntity<Message> saveDoctorService(DoctorDTO doctorDTO) {
-		
-		Optional<Doctor> doctorexists = doctorRepository.findByEmail(doctorDTO.getEmail());
-		if (doctorexists.isPresent()) {
-			return ResponseEntity.ok(new Message("Doctor already exists"));
-		} else {
-			Doctor doctor = new Doctor(doctorDTO.getDoctorID(),doctorDTO.getFirstName(),
-					doctorDTO.getLastName(), doctorDTO.getEmail());
-			doctorRepository.save(doctor);
-			return ResponseEntity.ok(new Message("Doctor saved"));
-		}
 
-	}
 }
