@@ -2,6 +2,8 @@
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,44 +27,60 @@ import io.swagger.v3.oas.annotations.OpenAPI30;
 @RestController
 @RequestMapping(&quot;/patient&quot;)
 @OpenAPI30
-<span class="fc" id="L28">public class PatientRestController {</span>
+<span class="fc" id="L30">public class PatientRestController {</span>
+	
+	
+<span class="fc" id="L33">	private Logger logger = LogManager.getLogger(this.getClass().getName());</span>
+	
 	@Autowired
 	PatientService patientService;
 
 	@Autowired
 	PatientRepository patientRepo;
-
-	/*
-		this will take patientId as input and returns Patient Details
-		*/
+	/**
+	 * this method will find patient with patientid
+	 * @param patientId
+	 * @return
+	 * @throws PatientNotFoundException
+	 */
 	@GetMapping(path = &quot;/{patientId}&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity&lt;Patient&gt; findPatient(@PathVariable(&quot;patientId&quot;) int patientId)
 			throws PatientNotFoundException {
-<span class="fc" id="L41">		return patientService.findPatientService(patientId);</span>
+<span class="fc" id="L49">		logger.info(&quot;this method had a call to find patient service&quot;);</span>
+<span class="fc" id="L50">		return patientService.findPatientService(patientId);</span>
 	}
-	/*
-	this will add new patient to patient Table (JSON as input)
-	*/
+	/**
+	 * this will add new patient to patient Table
+	 * @param patientDTO
+	 * @return
+	 */
 	@PostMapping(path = &quot;/save&quot;, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity&lt;Message&gt; savePatient(@RequestBody PatientDTO patientDTO) {
-<span class="fc" id="L48">		return patientService.savePatientService(patientDTO);</span>
+<span class="fc" id="L59">		logger.info(&quot;this method had a call to save patient service&quot;);</span>
+<span class="fc" id="L60">		return patientService.savePatientService(patientDTO);</span>
 	}
-	/*
-	this is used to update patient details.
-	this will take patient details in JSON as input and checks patient exists and returns Patient updated
-	*/
+	/**
+	 * this method will update patient details.
+	 * @param patientDTO
+	 * @return
+	 */
 	@PatchMapping(path = &quot;/update&quot;, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity&lt;Message&gt; updatePatient(@RequestBody PatientDTO patientDTO) {
-<span class="fc" id="L56">		return patientService.updatePatientService(patientDTO);</span>
+<span class="fc" id="L69">		logger.info(&quot;this method had a call update patient service&quot;);</span>
+<span class="fc" id="L70">		return patientService.updatePatientService(patientDTO);</span>
 
 	}
-	/*
-	this will list all patient details based on first name
-	*/
+	/**
+	 * this will list all patient details based on first name
+	 * @param firstName
+	 * @return
+	 * @throws PatientNotFoundException
+	 */
 	@GetMapping(path = &quot;/list/{firstName}&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity&lt;List&lt;Patient&gt;&gt; findPatientByFirstName(@PathVariable(&quot;firstName&quot;) String firstName)
 			throws PatientNotFoundException {
-<span class="fc" id="L65">		return patientService.findPatientByFirstNameService(firstName);</span>
+<span class="fc" id="L82">		logger.info(&quot;this method had a call to find by first Name patient service&quot;);</span>
+<span class="fc" id="L83">		return patientService.findPatientByFirstNameService(firstName);</span>
 	}
 
 }

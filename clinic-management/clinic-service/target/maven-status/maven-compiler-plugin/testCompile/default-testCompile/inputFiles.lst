@@ -1,10 +1,15 @@
-C:\clinic_management\clinic-management\clinic-service\src\test\java\com\demo\spring\DiagnosticRestControllerTest.java
+C:\clinic_management\clinic-management\clinic-service\src\test\java\com\demo\spring\dto\PatientDTOTest.java
+C:\clinic_management\clinic-management\clinic-service\src\test\java\com\demo\spring\entity\PatientDiagnosticTest.java
 C:\clinic_management\clinic-management\clinic-service\src\test\java\com\demo\spring\dto\DoctorSpecialityDTOTest.java
 C:\clinic_management\clinic-management\clinic-service\src\test\java\com\demo\spring\dto\PatientDiagnosticDTOTest.java
 C:\clinic_management\clinic-management\clinic-service\src\test\java\com\demo\spring\entity\SpecialityTest.java
 C:\clinic_management\clinic-management\clinic-service\src\test\java\com\demo\spring\DoctorSpecialityRestControllerTest.java
 C:\clinic_management\clinic-management\clinic-service\src\test\java\com\demo\spring\DoctorRestControllerTest.java
-C:\clinic_management\clinic-management\clinic-service\src\test\java\com\demo\spring\dto\SpecialityDTOTest.java
 C:\clinic_management\clinic-management\clinic-service\src\test\java\com\demo\spring\PatientDiagnosticRestControllerTest.java
 C:\clinic_management\clinic-management\clinic-service\src\test\java\com\demo\spring\dto\DiagnosticDTOTest.java
 C:\clinic_management\clinic-management\clinic-service\src\test\java\com\demo\spring\dto\DoctorDTOTest.java
+C:\clinic_management\clinic-management\clinic-service\src\test\java\com\demo\spring\entity\DiagnosticTest.java
+C:\clinic_management\clinic-management\clinic-service\src\test\java\com\demo\spring\DiagnosticRestControllerTest.java
+C:\clinic_management\clinic-management\clinic-service\src\test\java\com\demo\spring\entity\DoctorSpecialityTest.java
+C:\clinic_management\clinic-management\clinic-service\src\test\java\com\demo\spring\entity\DoctorTest.java
+C:\clinic_management\clinic-management\clinic-service\src\test\java\com\demo\spring\dto\SpecialityDTOTest.java

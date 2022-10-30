@@ -3,15 +3,60 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Save patient</title>
+
+<link rel="stylesheet" href="" th:href="@{/css/form1.css}" />
 </head>
 <body>
-	<h2>Register new Patient</h2>
-	<form action="savenewPatient" method="POST">
-		<span>Patient First Name</span><input type="text" name="firstName"><br />
-		<span>Patient Last Name</span><input type="text" name="lastName"><br />
-		<span>Email</span><input type="text" name="email"><br />
-		<input type="submit" name="Register">
-	</form>
+	<h1 text-align: center;
+    "color :white;">Register New Patient</h1>
+
+	<div class="container">
+		<form action="savenewPatient" method="POST">
+			<div class="row">
+				<div class="col-25">
+					<label for="firstName">Patient First Name</label>
+				</div>
+				<div class="col-75">
+					<input type="text" id="firstName" name="firstName"
+						placeholder="Your First name.." required>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-25">
+					<label for="lastName">Patient Last Name</label>
+				</div>
+				<div class="col-75">
+					<input type="text" id="lastName" name="lastName"
+						placeholder="Your last name.." required>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-25">
+					<label for="email">Patient Email</label>
+				</div>
+				<div class="col-75">
+					<input type="text" id="email" name="email"
+						placeholder="Your email.." required>
+				</div>
+			</div>
+
+			<div class="row">
+				<button type="submit" class="submitbtn" value="Submit">Add</button>
+
+			</div>
+		</form>
+		 <br>
+	  <br>
+	  <center><button onclick="history.back()">Go Back</button>
+		<br>
+	  <br>
+	  </div>
+	   <div th:text="${response}"
+			style="background-color: rgba(255, 255, 255, 0.2); max-width: 70%; margin-left: 15%; text-align: center"></div>
+
+	</div>
+		
 </body>
 </html>
 

@@ -90,7 +90,7 @@ class PatientRestControllerTest {
 		Patient patient = new Patient(200, "bindu", "sp", "bindusp@gmail.com");
 		ObjectMapper mapper = new ObjectMapper();
 		String patientJson = mapper.writeValueAsString(patient);
-		when(patientRepo.findByEmail("bindusp@gmail.com")).thenReturn(Optional.of(patient));
+		when(patientRepo.findById(200)).thenReturn(Optional.of(patient));
 		mvc.perform(patch("/patient/update").content(patientJson).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andDo(print()).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -102,7 +102,7 @@ class PatientRestControllerTest {
 		Patient patient = new Patient(200, "bindu", "sp", "bindusp@gmail.com");
 		ObjectMapper mapper = new ObjectMapper();
 		String patientJson = mapper.writeValueAsString(patient);
-		when(patientRepo.existsById(200)).thenReturn(false);
+		when(patientRepo.findById(200)).thenReturn(Optional.empty());
 		mvc.perform(patch("/patient/update").content(patientJson).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andDo(print()).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))

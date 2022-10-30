@@ -15,10 +15,9 @@ public class AppointmentDTO {
 	}
 
 	public AppointmentDTO(Integer appointmentID, Integer doctorID, Integer patientID, String date) {
+		this(doctorID,patientID,date);
 		this.appointmentID = appointmentID;
-		this.doctorID = doctorID;
-		this.patientID = patientID;
-		this.date = date;
+		
 	}
 
 	public AppointmentDTO(Integer doctorID, Integer patientID, String date) {

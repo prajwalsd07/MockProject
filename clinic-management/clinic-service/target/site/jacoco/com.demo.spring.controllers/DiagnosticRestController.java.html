@@ -2,6 +2,8 @@
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,34 +22,49 @@ import com.demo.spring.exceptions.DiagnosticTestExistsException;
 import com.demo.spring.service.DiagnosticService;
 import com.demo.spring.util.Message;
 
+import io.micrometer.core.annotation.Timed;
+
 @RestController
 @RequestMapping(&quot;/clinic&quot;)
-<span class="fc" id="L25">public class DiagnosticRestController {</span>
+<span class="fc" id="L29">public class DiagnosticRestController {</span>
+<span class="fc" id="L30">	private Logger logger = LogManager.getLogger(this.getClass().getName());</span>
 
 	@Autowired
 	DiagnosticService diagnosticService;
 	
-	/*
-	this will add new test to the diagnostic table
-	*/
+	/**
+	 * this will add new test to the diagnostic table
+	 * @param DiagnosticDTO
+	 * @return
+	 * @throws DiagnosticTestExistsException
+	 */
+	@Timed(value = &quot;requests.add.test&quot;)
 	@PostMapping(path=&quot;/diagnostic/addTest&quot; ,consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity&lt;Message&gt; addTest(@RequestBody DiagnosticDTO DiagnosticDTO) throws DiagnosticTestExistsException{
-<span class="fc" id="L35">		return ResponseEntity.ok(diagnosticService.addTestService(DiagnosticDTO));</span>
+<span class="fc" id="L44">		logger.info(&quot;this method had a call to add diagnostic service&quot;);</span>
+<span class="fc" id="L45">		return ResponseEntity.ok(diagnosticService.addTestService(DiagnosticDTO));</span>
 	}
 	
-	/*
-	this will delete test from diagnostic table based on diagnostic-Id
-	*/
+	/**
+	 * this will delete test from diagnostic table based on diagnostic-Id
+	 * @param id
+	 * @return
+	 * @throws DiagnosticNotFoundException
+	 */
+	@Timed(value = &quot;requests.delete.test&quot;)
 	@DeleteMapping(path=&quot;/diagnostic/deleteTest/{id}&quot; , produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity&lt;Message&gt; deleteTest(@PathVariable(&quot;id&quot;) Integer id) throws DiagnosticNotFoundException{
-<span class="fc" id="L43">		return ResponseEntity.ok(diagnosticService.deleteTestService(id));</span>
+<span class="fc" id="L57">		logger.info(&quot;this method had a call to delete diagnostic service&quot;);</span>
+<span class="fc" id="L58">		return ResponseEntity.ok(diagnosticService.deleteTestService(id));</span>
 	}
 	/*
-	this will list all the diagnostic tests
-	*/
+	 * this will list all the diagnostic tests
+	 */
+	@Timed(value = &quot;requests.list.all.diagnostic&quot;)
 	@GetMapping(path=&quot;/diagnostic/list&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity&lt;List&lt;Diagnostic&gt;&gt; listAllDiagnostic() {
-<span class="fc" id="L50">			return ResponseEntity.ok(diagnosticService.listAllDiagnosticService());</span>
+<span class="fc" id="L66">		logger.info(&quot;this method had a call to list all diagnostic service&quot;);</span>
+<span class="fc" id="L67">			return ResponseEntity.ok(diagnosticService.listAllDiagnosticService());</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

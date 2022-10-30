@@ -4,20 +4,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import com.demo.spring.entity.Doctor;
+
 class DoctorDTOTest {
 
 	@Test
 	void testDoctorDTO() {
-		DoctorDTO doctorDTO = new DoctorDTO();
-		doctorDTO.setFirstName("suraj");
-		doctorDTO.setLastName("mogali");
-		doctorDTO.setEmail("surajmogali@gmail.com");
-		doctorDTO.setDoctorID(101);
+		DoctorDTO doctor = new DoctorDTO();
+		doctor.setFirstName("suraj");
+		doctor.setLastName("mogali");
+		doctor.setEmail("surajmogali@gmail.com");
+		doctor.setDoctorID(101);
+		
+		DoctorDTO doctorDTO2 = new DoctorDTO(101,"suraj","mogali","surajmogali@gmail.com");
 
-		assertEquals("suraj", doctorDTO.getFirstName());
-		assertEquals("mogali", doctorDTO.getLastName());
-		assertEquals("surajmogali@gmail.com", doctorDTO.getEmail());
-		assertEquals(101, doctorDTO.getDoctorID());
+		assertEquals("suraj", doctor.getFirstName());
+		assertEquals("mogali", doctor.getLastName());
+		assertEquals("surajmogali@gmail.com", doctor.getEmail());
+		assertEquals(101, doctor.getDoctorID());
 
 	}
 }

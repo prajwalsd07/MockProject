@@ -23,7 +23,7 @@ public class PatientController {
 	@Autowired
 	RestTemplate restTemplate;
 
-	@GetMapping(path = "/patient/findPatient")
+	@GetMapping(path = "/findPatient")
 	public ModelAndView findById(@RequestParam(name = "id", required = true) int id) {
 		ModelAndView mv = new ModelAndView();
 		String message = "Patient Not Found";
@@ -79,12 +79,13 @@ public class PatientController {
 		HttpEntity<PatientDTO> req = new HttpEntity<>(patientDTO, headers);
 		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8194/patient/save", HttpMethod.POST,
 				req, String.class);
-		mv.setViewName("savepatientsuccess");
+		
 		mv.addObject("response", response.getBody());
+		mv.setViewName("savePatient");
 		return mv;
 	}
 
-	@PostMapping(path = "/patient/updateoldPatient")
+	@PostMapping(path = "/updateoldPatient")
 	public ModelAndView updatePatient(PatientDTO patientDTO) {
 		ModelAndView mv = new ModelAndView();
 		HttpHeaders headers = new HttpHeaders();
@@ -92,8 +93,9 @@ public class PatientController {
 		HttpEntity<PatientDTO> req = new HttpEntity<>(patientDTO, headers);
 		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8194/patient/update",
 				HttpMethod.PATCH, req, String.class);
-		mv.setViewName("updatepatientsuccess");
+		
 		mv.addObject("response", response.getBody());
+		mv.setViewName("updatepatient");
 		return mv;
 	}
 

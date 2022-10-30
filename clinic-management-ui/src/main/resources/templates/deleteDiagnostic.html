@@ -3,11 +3,40 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Delete Diagnostic</title>
+
+<link rel="stylesheet" href="" th:href="@{/css/form1.css}"/>
 </head>
 <body>
-    <form action="delete2" method="post">
-        <span>Enter Diagnostic ID</span> <input type="text" name="diagnosticID"><br>
-        <input type="submit" name="delete">
-    </form>
-    </body>
+	<h1 text-align: center;
+    "color : white;">Remove Diagnostic Test</h1>
+
+	<div class="container">
+		<form action="delete2" method="POST">
+		  <div class="row">
+			<div class="col-25">
+			  <label for="diagnosticID">Enter Diagnostic ID</label>
+			</div>
+			<div class="col-76">
+			  <input type="text" id="diagnosticID" name="diagnosticID" placeholder="Diagnostic-ID">
+			</div>
+		  </div>
+		  
+		
+		  <div class="row">
+			<button type="submit" class="submitbtn" value="Submit">Delete</button>
+
+		  </div>
+		</form>
+		<br>
+	  <br>
+	  <center><button onclick="history.back()">Go Back</button>
+		<br>
+	  <br>
+	  </div>
+	   <div th:text="${response}"
+			style="background-color: rgba(255, 255, 255, 0.2); max-width: 70%; margin-left: 15%; text-align: center"></div>
+
+	</div>
+</body>
 </html>
+

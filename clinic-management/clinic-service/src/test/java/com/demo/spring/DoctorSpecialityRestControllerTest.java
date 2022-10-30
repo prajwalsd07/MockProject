@@ -26,6 +26,7 @@ import com.demo.spring.entity.Doctor;
 import com.demo.spring.entity.DoctorSpeciality;
 import com.demo.spring.repositories.DoctorRepository;
 import com.demo.spring.repositories.DoctorSpecialityRepository;
+import com.demo.spring.repositories.SpecialityRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -40,6 +41,9 @@ class DoctorSpecialityRestControllerTest {
 
 	@MockBean
 	DoctorRepository doctorRepository;
+	
+	@MockBean
+	SpecialityRepository specialityRepository;
 
 	@Test
 	void testAddDoctorToSpecialitySuccess() throws Exception {
@@ -47,6 +51,7 @@ class DoctorSpecialityRestControllerTest {
 		ObjectMapper mapper = new ObjectMapper();
 		String doctorJson = mapper.writeValueAsString(doctorSpeciality);
 		when(doctorRepository.existsById(101)).thenReturn(true);
+		when(specialityRepository.existsById(5)).thenReturn(true);
 
 		mvc.perform(
 				post("/clinic/speciality/addDoctor").content(doctorJson).contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -56,7 +61,7 @@ class DoctorSpecialityRestControllerTest {
 	}
 
 	@Test
-	void testAddDoctorTOSpecialityFailure() throws Exception {
+	void testAddDoctorTOSpecialityFailure1() throws Exception {
 		DoctorSpeciality doctorSpeciality = new DoctorSpeciality(105, 5);
 		ObjectMapper mapper = new ObjectMapper();
 		String doctorSpecialityJson = mapper.writeValueAsString(doctorSpeciality);
@@ -66,6 +71,20 @@ class DoctorSpecialityRestControllerTest {
 				.contentType(MediaType.APPLICATION_JSON_VALUE)).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$.status").value("Doctor Not Found"));
+	}
+	
+	@Test
+	void testAddDoctorTOSpecialityFailure2() throws Exception {
+		DoctorSpeciality doctorSpeciality = new DoctorSpeciality(105, 5);
+		ObjectMapper mapper = new ObjectMapper();
+		String doctorSpecialityJson = mapper.writeValueAsString(doctorSpeciality);
+		when(doctorRepository.existsById(doctorSpeciality.getDoctorID())).thenReturn(true);
+		when(specialityRepository.existsById(doctorSpeciality.getSpecialityID())).thenReturn(false);
+
+		mvc.perform(post("/clinic/speciality/addDoctor").content(doctorSpecialityJson)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(jsonPath("$.status").value("Speciality Not Found"));
 	}
 
 	@Test

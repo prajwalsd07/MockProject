@@ -14,51 +14,50 @@ public class AppointmentDTO {
 
 <span class="fc" id="L15">	}</span>
 
-<span class="fc" id="L17">	public AppointmentDTO(Integer appointmentID, Integer doctorID, Integer patientID, String date) {</span>
-<span class="fc" id="L18">		this.appointmentID = appointmentID;</span>
-<span class="fc" id="L19">		this.doctorID = doctorID;</span>
-<span class="fc" id="L20">		this.patientID = patientID;</span>
-<span class="fc" id="L21">		this.date = date;</span>
-<span class="fc" id="L22">	}</span>
+	public AppointmentDTO(Integer appointmentID, Integer doctorID, Integer patientID, String date) {
+<span class="fc" id="L18">		this(doctorID,patientID,date);</span>
+<span class="fc" id="L19">		this.appointmentID = appointmentID;</span>
+		
+<span class="fc" id="L21">	}</span>
 
 	public AppointmentDTO(Integer doctorID, Integer patientID, String date) {
-<span class="nc" id="L25">		super();</span>
-<span class="nc" id="L26">		this.doctorID = doctorID;</span>
-<span class="nc" id="L27">		this.patientID = patientID;</span>
-<span class="nc" id="L28">		this.date = date;</span>
-<span class="nc" id="L29">	}</span>
+<span class="fc" id="L24">		super();</span>
+<span class="fc" id="L25">		this.doctorID = doctorID;</span>
+<span class="fc" id="L26">		this.patientID = patientID;</span>
+<span class="fc" id="L27">		this.date = date;</span>
+<span class="fc" id="L28">	}</span>
 
 	public Integer getAppointmentID() {
-<span class="fc" id="L32">		return appointmentID;</span>
+<span class="fc" id="L31">		return appointmentID;</span>
 	}
 
 	public void setAppointmentID(Integer appointmentID) {
-<span class="fc" id="L36">		this.appointmentID = appointmentID;</span>
-<span class="fc" id="L37">	}</span>
+<span class="fc" id="L35">		this.appointmentID = appointmentID;</span>
+<span class="fc" id="L36">	}</span>
 
 	public Integer getDoctorID() {
-<span class="fc" id="L40">		return doctorID;</span>
+<span class="fc" id="L39">		return doctorID;</span>
 	}
 
 	public void setDoctorID(Integer doctorID) {
-<span class="fc" id="L44">		this.doctorID = doctorID;</span>
-<span class="fc" id="L45">	}</span>
+<span class="fc" id="L43">		this.doctorID = doctorID;</span>
+<span class="fc" id="L44">	}</span>
 
 	public Integer getPatientID() {
-<span class="fc" id="L48">		return patientID;</span>
+<span class="fc" id="L47">		return patientID;</span>
 	}
 
 	public void setPatientID(Integer patientID) {
-<span class="fc" id="L52">		this.patientID = patientID;</span>
-<span class="fc" id="L53">	}</span>
+<span class="fc" id="L51">		this.patientID = patientID;</span>
+<span class="fc" id="L52">	}</span>
 
 	public String getDate() {
-<span class="fc" id="L56">		return date;</span>
+<span class="fc" id="L55">		return date;</span>
 	}
 
 	public void setDate(String date) {
-<span class="fc" id="L60">		this.date = date;</span>
-<span class="fc" id="L61">	}</span>
+<span class="fc" id="L59">		this.date = date;</span>
+<span class="fc" id="L60">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -2,26 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Clinic Management</title>
+
+<link rel="stylesheet" href="" th:href="@{/css/all.css}"/>
 </head>
 <body>
-	<h1>Clinic Management</h1>
-	<hr>
-	<p>
-		<a href="patient">Patient services</a>
-	</p>
-	<p>
-		<a href="doctor">Doctor Services </a>
-	</p>
-	<p>
-		<a href="appointment">Appointment Services </a>
-	</p>
-	<p>
-		<a href="diagnostic">Diagnostic Services </a>
-	</p>
-	
-	<p>
-		<a href="updatePassword">Update password Service</a>
-	</p>
+	<h1>Charaka Clinic and Diagnostic Centre</h1>
+
+<ul>
+  <li><a class="active" href="/patient">Patient services</a></li>
+  <li><a href="/doctor">Doctor Services</a></li>
+  <li><a href="/appointment">Appointment Services</a></li>
+  <li><a href="/diagnostic">Diagnostic Services</a></li>
+  <li><a href="/updatePassword">Update password Service</a></li>
+</ul>
+<div>
+	 <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  <center><img src="" th:src="@{/image/clinic.png}" width="200" height="100" style="width:328px;height:290px;" ></center>
+</div>
+
 </body>
 </html>

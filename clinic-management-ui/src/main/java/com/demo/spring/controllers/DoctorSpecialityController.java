@@ -18,62 +18,68 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.demo.spring.dto.DoctorDTO;
 import com.demo.spring.dto.DoctorSpecialityDTO;
+
 @Controller
 public class DoctorSpecialityController {
-	
+
 	@Autowired
 	RestTemplate restTemplate;
-	
-	
+
 	@GetMapping(path = "/doctorSpeciality/listdoctorinspeciality")
-	public ModelAndView listDoctorInSpeciality(@RequestParam(name = "specialityID", required = true) String specialityID) {
+	public ModelAndView listDoctorInSpeciality(
+			@RequestParam(name = "specialityID", required = true) String specialityID) {
 		ModelAndView mv = new ModelAndView();
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<Void> request = new HttpEntity<>(headers);
-		ResponseEntity<List<DoctorDTO>> response = restTemplate.exchange(
-				"http://localhost:8194/clinic/speciality/list/" + specialityID, HttpMethod.GET, request,
-				new ParameterizedTypeReference<List<DoctorDTO>>() {
-				});
+		String str = restTemplate.exchange("http://localhost:8194/clinic/speciality/list/" + specialityID,
+				HttpMethod.GET, request, String.class).getBody();
 
-		if (response.getBody() != null) {
+		if (str != null && str.equals("{\"status\":\"Speciality Not Found\"}")) {
+			mv.addObject("response", "Speciality Not Found");
+			mv.setViewName("updatepatientsuccess");
+		} else {
+			ResponseEntity<List<DoctorDTO>> response = restTemplate.exchange(
+					"http://localhost:8194/clinic/speciality/list/" + specialityID, HttpMethod.GET, request,
+					new ParameterizedTypeReference<List<DoctorDTO>>() {
+					});
+
 			mv.addObject("doctorList", response.getBody());
 			mv.setViewName("listDoctorSpeciality");
-		} else {
-			ResponseEntity<String> response3 = restTemplate.exchange("http://localhost:8194/clinic/speciality/list/" + specialityID,
-					HttpMethod.GET, request, String.class);
-			mv.addObject("msg", response3.getBody());
-			mv.setViewName("findpatientfailure");
 		}
 		return mv;
 	}
-	
+
 	@PostMapping(path = "/doctorSpeciality/addDoctorToSpeciality")
 	public ModelAndView addDoctorSpeciality(DoctorSpecialityDTO doctorSpecialityDTO) {
 		ModelAndView mv = new ModelAndView();
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<DoctorSpecialityDTO> req = new HttpEntity<>(doctorSpecialityDTO, headers);
-		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8194/clinic/speciality/addDoctor", HttpMethod.POST,
-				req, String.class);
-		mv.setViewName("savepatientsuccess");
+		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8194/clinic/speciality/addDoctor",
+				HttpMethod.POST, req, String.class);
+	
 		mv.addObject("response", response.getBody());
+		mv.setViewName("saveDoctorSpeciality");
 		return mv;
 	}
-	
+
 	@PostMapping(path = "/removedoctor")
-	public ModelAndView removedoctorfromspeciality(@RequestParam(name = "doctorID", required = true) int doctorID,@RequestParam(name = "specialityID", required = true) int specialityID) {
-		System.out.println("iiiiiiiiiiiiiiiisdcnj");
+	public ModelAndView removedoctorfromspeciality(@RequestParam(name = "doctorID", required = true) int doctorID,
+			@RequestParam(name = "specialityID", required = true) int specialityID) {
 		
+
 		ModelAndView mv = new ModelAndView();
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<Void> req = new HttpEntity<>(headers);
-			ResponseEntity<String> response = restTemplate.exchange("http://localhost:8194/clinic/speciality/removeDoctor/"+doctorID+"/"+specialityID,
-					HttpMethod.DELETE, req, String.class);
-			mv.addObject("response", response.getBody());
-			mv.setViewName("deleteDoctorSpeciality");
+		ResponseEntity<String> response = restTemplate.exchange(
+				"http://localhost:8194/clinic/speciality/removeDoctor/" + doctorID + "/" + specialityID,
+				HttpMethod.DELETE, req, String.class);
+		mv.addObject("response", response.getBody());
+		System.out.println(response.getBody());
+		mv.setViewName("deleteDoctorSpeciality");
 		return mv;
 
-}
+	}
 }

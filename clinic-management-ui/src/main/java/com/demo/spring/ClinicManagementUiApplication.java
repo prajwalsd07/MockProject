@@ -27,10 +27,10 @@ public class ClinicManagementUiApplication implements WebMvcConfigurer {
 		registry.addViewController("/").setViewName("home");
 		
 		
-		registry.addViewController("/patient/find").setViewName("findPatient");
+		registry.addViewController("/patient-find").setViewName("findPatient");
 		registry.addViewController("/patient/list").setViewName("listPatient");
 		registry.addViewController("/patient/save").setViewName("savePatient");
-		registry.addViewController("/patient/update").setViewName("updatePatient");
+		registry.addViewController("/patient-update").setViewName("updatePatient");
 		registry.addViewController("/patient").setViewName("homePatient");
 		
 		

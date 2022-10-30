@@ -2,19 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" href="" th:href="@{/css/all.css}"/>
 <title>Appointment Home Page</title>
 </head>
 <body>
 	<h1>Appointment Home Page</h1>
-	<hr>
-	<p>
-		<a href="appointment/add">Add appointment</a>
-	</p>
-	<p>
-		<a href="appointment/list">List all Appointments </a>
-	</p>
-	<p>
-		<a href="appointment/listbydate">List appointments for a doctor by date</a>
-	</p>
+	<ul>
+	<li><a class="active" href="appointment/add">Add appointment</a></li>
+	<li><a href="appointment/list">List all Appointments </a></li>
+    <li><a href="appointment/listbydate">List appointments for a doctor by date</a></li>
+    </ul>
+    <div>
+	<br>
+		<br>
+		<br>
+		<br>
+		<br>
+	<center><img src="" th:src="@{/image/appointment.png}" width="200" height="100" style="width:328px;height:290px;" ></center>
+    </div>
 </body>
 </html>

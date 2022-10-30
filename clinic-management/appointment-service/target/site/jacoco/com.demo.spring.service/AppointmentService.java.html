@@ -2,6 +2,8 @@
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,30 +15,35 @@ import com.demo.spring.repositories.AppointmentRepository;
 import com.demo.spring.util.Message;
 
 @Service
-<span class="fc" id="L16">public class AppointmentService {</span>
+<span class="fc" id="L18">public class AppointmentService {</span>
+<span class="fc" id="L19">	private Logger logger = LogManager.getLogger(this.getClass().getName());</span>
 	@Autowired
 	AppointmentRepository appointmentRepo;
  
 	public ResponseEntity&lt;List&lt;Appointment&gt;&gt; findAllAppointmentsService() {
-<span class="fc" id="L21">		return ResponseEntity.ok(appointmentRepo.findAll());</span>
+<span class="fc" id="L24">		logger.info(&quot;appointment list succesfully returned&quot;);</span>
+<span class="fc" id="L25">		return ResponseEntity.ok(appointmentRepo.findAll());</span>
 	}
 
 	public ResponseEntity&lt;List&lt;Appointment&gt;&gt; findAppointmentsByDateService(int doctorID, String date) throws AppointmentNotFoundException {
-<span class="fc" id="L25">		List&lt;Appointment&gt; listAppointment = appointmentRepo.findAllByDate(doctorID, date);</span>
-<span class="fc bfc" id="L26" title="All 2 branches covered.">		if (listAppointment.isEmpty()) {</span>
-<span class="fc" id="L27">			throw new AppointmentNotFoundException();</span>
+<span class="fc" id="L29">		List&lt;Appointment&gt; listAppointment = appointmentRepo.findAllByDate(doctorID, date);</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">		if (listAppointment.isEmpty()) {</span>
+<span class="fc" id="L31">			logger.error(&quot;Exception : Appointment Not Found Exception thrown&quot;);</span>
+<span class="fc" id="L32">			throw new AppointmentNotFoundException();</span>
 		} else {
-<span class="fc" id="L29">			return ResponseEntity.ok(listAppointment);</span>
+<span class="fc" id="L34">			logger.info(&quot;appointment list by date succesfully returned&quot;);</span>
+<span class="fc" id="L35">			return ResponseEntity.ok(listAppointment);</span>
 		}
 }
 	
 	
 	public ResponseEntity&lt;Message&gt; createAppointmentService(AppointmentDTO appointmentDTO) { 
 		
-<span class="fc" id="L36">			Appointment appointment = new Appointment(appointmentDTO.getDoctorID(),</span>
-<span class="fc" id="L37">					appointmentDTO.getPatientID(), appointmentDTO.getDate());</span>
-<span class="fc" id="L38">			appointmentRepo.save(appointment);</span>
-<span class="fc" id="L39">			return ResponseEntity.ok(new Message(&quot;Appointment saved&quot;));</span>
+<span class="fc" id="L42">			Appointment appointment = new Appointment(appointmentDTO.getDoctorID(),</span>
+<span class="fc" id="L43">					appointmentDTO.getPatientID(), appointmentDTO.getDate());</span>
+<span class="fc" id="L44">			appointmentRepo.save(appointment);</span>
+<span class="fc" id="L45">			logger.info(&quot;appointment created succesfully&quot;);</span>
+<span class="fc" id="L46">			return ResponseEntity.ok(new Message(&quot;Appointment saved&quot;));</span>
 		
 
 	}

@@ -2,22 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" href="" th:href="@{/css/all.css}"/>
 <title>Patient Home Page</title>
 </head>
 <body>
 	<h1>Patient Home Page</h1>
-	<hr>
-	<p>
-		<a href="patient/find">Find Patient</a>
-	</p>
-	<p>
-		<a href="patient/list">List all by First Name </a>
-	</p>
-	<p>
-		<a href="patient/save">Save new Patient</a>
-	</p>
-	<p>
-		<a href="update">Update Patient Details</a>
-	</p>
+	
+	<ul>
+		<li><a class="active" href="patient-find">Find Patient</a></li>
+	    <li><a href="patient/list">List all by First Name </a></li>
+	    <li><a href="patient/save">Save new Patient</a></li>
+	    <li><a href="patient-update">Update Patient Details</a></li>
+	</ul>
+	<div>
+	 <br>
+		<br>
+		<br>
+		<br>
+		<br>
+	<center><img src="" th:src="@{/image/patient.png}" width="200" height="100" style="width:328px;height:290px;" ></center>
+</div>
 </body>
 </html>

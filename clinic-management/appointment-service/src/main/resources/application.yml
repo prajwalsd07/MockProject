@@ -31,3 +31,8 @@ management:
         include:
         - health
         - prometheus
+        
+        
+logging:
+  file:
+    name: appointment-service.log

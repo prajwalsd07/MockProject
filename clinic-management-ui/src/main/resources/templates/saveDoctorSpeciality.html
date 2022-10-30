@@ -3,15 +3,47 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Register new Doctor to Speciality</title>
+<link rel="stylesheet" href="" th:href="@{/css/form1.css}"/>
 </head>
 <body>
-	<h2>Register new Doctor to Speciality</h2>
-	<form action="addDoctorToSpeciality" method="POST">
-		<span>doctorID</span><input type="text" name="doctorID"><br />
-		<span>specialityID</span><input type="text" name="specialityID"><br />
-			<input
-			type="submit" name="Register">
-			</form>
+	<h1 text-align: center;
+    "color : white;">Register new Doctor to Speciality</h1>
+
+	<div class="container">
+		<form action="addDoctorToSpeciality" method="POST">
+			<div class="row">
+				<div class="col-25">
+				  <label for="doctorID">Enter Doctor ID</label>
+				</div>
+				<div class="col-76">
+				  <input type="text" id="doctorID" name="doctorID" placeholder="Doctor-ID" required>
+				</div>
+			  </div>
+			  <div class="row">
+			
+			<div class="row">
+			<div class="col-25">
+			  <label for="specialityID">Enter Speciality ID</label>
+			</div>
+			<div class="col-76">
+			  <input type="text" id="specialityID" name="specialityID" placeholder="speciality-ID" required>
+			</div>
+		  </div>
+		  
+			<button type="submit" class="submitbtn" value="Submit">Add</button>
+
+		  </div>
+		</form>
+        <br>
+	  <br>
+	  <center><button onclick="history.back()">Go Back</button>
+		<br>
+	  <br>
+	  </div>
+	   <div th:text="${response}"
+			style="background-color: rgba(255, 255, 255, 0.2); max-width: 70%; margin-left: 15%; text-align: center"></div>
+
+	</div>
 </body>
 </html>
 

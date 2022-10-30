@@ -58,6 +58,14 @@ th, td {
 				<th>lastName</th>
 				<th>email</th>
 			</tr>
+		
+		</table>
+	</div>
+</body>
+<div th:each="patient:${patientList}">
+		<table class="table table-success table-stripped"
+			style="max-width: 70%; margin-left: 20%">
+			
 			<tr>
 				<td><span th:text="${patient.patientId}"></span></td>
 				<td><span th:text="${patient.firstName}"></span></td>
@@ -66,4 +74,3 @@ th, td {
 			</tr>
 		</table>
 	</div>
-</body>

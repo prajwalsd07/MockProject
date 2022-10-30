@@ -2,51 +2,61 @@
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.demo.spring.dto.DoctorDTO;
 import com.demo.spring.entity.Doctor;
 import com.demo.spring.exceptions.DoctorNotFoundException;
 import com.demo.spring.service.DoctorService;
-import com.demo.spring.util.Message;
+
+import io.micrometer.core.annotation.Timed;
 
 @RestController
 @RequestMapping(&quot;/clinic&quot;)
 <span class="fc" id="L23">public class DoctorRestController {</span>
+<span class="fc" id="L24">	private Logger logger = LogManager.getLogger(this.getClass().getName());</span>
 
 	@Autowired
 	DoctorService doctorService;
 
-	/*
+	/**
 	 * this will list all the doctors data
+	 * @return
+	 * @throws DoctorNotFoundException
 	 */
+	@Timed(value = &quot;requests.list.all.doctors&quot;)
 	@GetMapping(path = &quot;/doctor/list&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity&lt;List&lt;Doctor&gt;&gt; listAllDoctor() throws DoctorNotFoundException {
-<span class="fc" id="L33">		List&lt;Doctor&gt; doctorList = doctorService.listAllDoctorService();</span>
-<span class="fc bfc" id="L34" title="All 2 branches covered.">		if (doctorList.isEmpty()) {</span>
-<span class="fc" id="L35">			throw new DoctorNotFoundException();</span>
+<span class="fc" id="L37">		List&lt;Doctor&gt; doctorList = doctorService.listAllDoctorService();</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">		if (doctorList.isEmpty()) {</span>
+<span class="fc" id="L39">			logger.error(&quot;Exception : Doctor Not Found Exception thrown&quot;);</span>
+<span class="fc" id="L40">			throw new DoctorNotFoundException();</span>
 		} else {
-<span class="fc" id="L37">			return ResponseEntity.ok(doctorList);</span>
+<span class="fc" id="L42">			logger.info(&quot;this method had a call to list all doctor service&quot;);</span>
+<span class="fc" id="L43">			return ResponseEntity.ok(doctorList);</span>
 		}
 	}
-
+	
+	/**
+	 * this method will find doctor by Id
+	 * @param doctorId
+	 * @return
+	 * @throws DoctorNotFoundException
+	 */
+	@Timed(value = &quot;requests.find.doctor&quot;)
 	@GetMapping(path = &quot;/doctor/{doctorId}&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity&lt;Doctor&gt; findDoctor(@PathVariable(&quot;doctorId&quot;) int doctorId) throws DoctorNotFoundException {
-<span class="fc" id="L43">		return doctorService.findDoctorService(doctorId);</span>
+<span class="fc" id="L56">		logger.info(&quot;this method had a call to find doctor service&quot;);</span>
+<span class="fc" id="L57">		return doctorService.findDoctorService(doctorId);</span>
 	}
-
-	@PostMapping(path = &quot;/doctor/save&quot;, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity&lt;Message&gt; saveDoctor(@RequestBody DoctorDTO doctorDTO) {
-<span class="fc" id="L48">		return doctorService.saveDoctorService(doctorDTO) ;</span>
-	}
+	
 
 	
 }

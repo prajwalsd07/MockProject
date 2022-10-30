@@ -49,7 +49,7 @@ public class AppointmentController {
 				HttpMethod.POST, req, String.class);
 
 		mv.addObject("response", response.getBody());
-		mv.setViewName("savepatientsuccess");
+		mv.setViewName("saveAppointment");
 		return mv;
 	}
 
@@ -62,7 +62,6 @@ public class AppointmentController {
 		HttpEntity<Void> request = new HttpEntity<>(headers);
 		String str = restTemplate.exchange("http://localhost:8194/appointment/listByDate/"+doctorID +"/"+ date,
 				HttpMethod.GET, request, String.class).getBody();
-System.out.println(str);
 		if (str != null && str.equals("{\"status\":\"There are no Appointments\"}")) {
 			mv.addObject("msg", "There are no Appointments");
 			mv.setViewName("findpatientfailure");

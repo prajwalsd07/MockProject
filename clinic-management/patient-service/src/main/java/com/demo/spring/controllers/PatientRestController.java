@@ -37,10 +37,6 @@ public class PatientRestController {
 
 	@Autowired
 	PatientRepository patientRepo;
-
-	/*
-		this will take patientId as input and returns Patient Details
-		*/
 	/**
 	 * this method will find patient with patientid
 	 * @param patientId
@@ -50,31 +46,40 @@ public class PatientRestController {
 	@GetMapping(path = "/{patientId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Patient> findPatient(@PathVariable("patientId") int patientId)
 			throws PatientNotFoundException {
-		logger.info("this method had a call to patient service");
+		logger.info("this method had a call to find patient service");
 		return patientService.findPatientService(patientId);
 	}
-	/*
-	this will add new patient to patient Table (JSON as input)
-	*/
+	/**
+	 * this will add new patient to patient Table
+	 * @param patientDTO
+	 * @return
+	 */
 	@PostMapping(path = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Message> savePatient(@RequestBody PatientDTO patientDTO) {
+		logger.info("this method had a call to save patient service");
 		return patientService.savePatientService(patientDTO);
 	}
-	/*
-	this is used to update patient details.
-	this will take patient details in JSON as input and checks patient exists and returns Patient updated
-	*/
+	/**
+	 * this method will update patient details.
+	 * @param patientDTO
+	 * @return
+	 */
 	@PatchMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Message> updatePatient(@RequestBody PatientDTO patientDTO) {
+		logger.info("this method had a call update patient service");
 		return patientService.updatePatientService(patientDTO);
 
 	}
-	/*
-	this will list all patient details based on first name
-	*/
+	/**
+	 * this will list all patient details based on first name
+	 * @param firstName
+	 * @return
+	 * @throws PatientNotFoundException
+	 */
 	@GetMapping(path = "/list/{firstName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Patient>> findPatientByFirstName(@PathVariable("firstName") String firstName)
 			throws PatientNotFoundException {
+		logger.info("this method had a call to find by first Name patient service");
 		return patientService.findPatientByFirstNameService(firstName);
 	}
 

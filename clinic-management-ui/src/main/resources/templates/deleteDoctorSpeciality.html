@@ -2,15 +2,48 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Delete Diagnostic</title>
+<title>Remove Doctor from Speciality</title>
+<link rel="stylesheet" href="" th:href="@{/css/form1.css}"/>
 </head>
 <body>
-    <form action="removedoctor" method="post">
-        <span>Enter Doctor ID</span> <input type="text" name="doctorID"><br>
-         <span>Enter Speciality ID</span> <input type="text" name="specialityID"><br>
-        <input type="submit" name="delete">
-    </form>
-    <div th:text="${response}"
-                            style="background-color: rgba(255, 0, 0, 0.2); max-width: 50%; margin-left: 15%; text-align: center"></div>
-    </body>
+	<h1 text-align: center;
+    "color : white;">Remove Doctor from Speciality</h1>
+
+	<div class="container">
+		<form action="removedoctor" method="POST">
+		  <div class="row">
+			<div class="col-25">
+			  <label for="doctorID">Enter Doctor ID</label>
+			</div>
+			<div class="col-76">
+			  <input type="text" id="doctorID" name="doctorID" placeholder="doctor-ID">
+			</div>
+		  </div>
+          <div class="row">
+			<div class="col-25">
+			  <label for="specialityID">Enter Speciality ID</label>
+			</div>
+			<div class="col-76">
+			  <input type="text" id="specialityID" name="specialityID" placeholder="speciality-ID">
+			</div>
+		  </div>
+		  
+		
+		  <div class="row">
+			<button type="submit" class="submitbtn" value="Submit">Delete</button>
+
+		  </div>
+		</form>
+	  </div>
+	  <br>
+	  <br>
+	  <center><button onclick="history.back()">Go Back</button>
+	  <br>
+	  <br>
+	  <div th:text="${response}"
+			style="background-color: rgba(255, 255, 255, 0.2); max-width: 70%; margin-left: 15%; text-align: center"></div>
+
+	</div>
+</body>
 </html>
+

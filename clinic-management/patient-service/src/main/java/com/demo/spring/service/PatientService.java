@@ -39,25 +39,28 @@ public class PatientService {
 		
 		Optional<Patient> patientex = patientRepo.findByEmail(patientDTO.getEmail());
 		if (patientex.isPresent()) {
+			logger.error("Patient already exists");
 			return ResponseEntity.ok(new Message("Patient already exists"));
 		} else {
 			Patient patient = new Patient(patientDTO.getFirstName(),
 					patientDTO.getLastName(), patientDTO.getEmail());
 			patientRepo.save(patient);
+			logger.info("patient saved successfully");
 			return ResponseEntity.ok(new Message("Patient saved"));
 		}
 
 	}
 
 	public ResponseEntity<Message> updatePatientService(PatientDTO patientDTO) {
-		Optional<Patient> patientOps = patientRepo.findByEmail(patientDTO.getEmail());
-		
+		Optional<Patient> patientOps = patientRepo.findById(patientDTO.getPatientId());
 		if (patientOps.isPresent()) {
 			Patient patient = new Patient(patientDTO.getFirstName(),
 					patientDTO.getLastName(), patientDTO.getEmail());
 			patientRepo.save(patient);
+			logger.info("patient details updated successfully");
 			return ResponseEntity.ok(new Message("Patient updated"));
 		} else {
+			logger.error("Patient Does not exists");
 			return ResponseEntity.ok(new Message("Patient does not exists"));
 		}
 
@@ -67,8 +70,10 @@ public class PatientService {
 			throws PatientNotFoundException {
 		List<Patient> patientList = patientRepo.findAllByFirstName(firstName);
 		if (patientList.isEmpty()) {
+			logger.error("Exception : Patient Not Found Exception thrown");
 			throw new PatientNotFoundException();
 		} else {
+			logger.info("patient list by first name returned successfully");
 			return ResponseEntity.ok(patientList);
 		}
 	}

@@ -1,0 +1,44 @@
+
+h1{
+    text-align: center;
+    color : white;
+}
+body{
+    background-color: rgb(8, 47, 124);
+}
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(4, 4, 53);
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  li a:hover {
+    background-color: #111;
+  }
+ img{
+    height: 150px;
+    width:200px;
+    align-items: center;
+ }
+ form {
+    border: 3px solid #f1f1f1;
+    max-width: 500px;
+    margin: auto;
+    background: rgb(122, 114, 114);
+    padding: 10px;
+    
+  }

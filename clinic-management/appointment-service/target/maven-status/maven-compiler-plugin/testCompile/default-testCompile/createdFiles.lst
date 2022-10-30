@@ -1,2 +1,4 @@
 com\demo\spring\AppointmentRestControllerTest.class
+com\demo\spring\dto\DoctorDTOTest.class
+com\demo\spring\dto\PatientDTOTest.class
 com\demo\spring\AppointmentControllerRestTemplateTest.class

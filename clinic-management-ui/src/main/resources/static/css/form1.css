@@ -1,0 +1,95 @@
+* {
+    box-sizing: border-box;
+  }
+h1{
+    text-align: center;
+    color : white;
+}
+body{
+    background-color: rgb(8, 47, 124);
+}
+
+  form {
+    border: 3px solid #f1f1f1;
+    max-width: 500px;
+    margin: auto;
+    background: rgb(114, 126, 216);
+    padding: 10px;
+    
+  }
+  
+  input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
+  
+  label {
+    display: inline-block;
+  }
+  
+  input[type=submit] {
+    background-color: #41504a;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+  }
+  
+  input[type=submit]:hover {
+    background-color: #d4ead5;
+  }
+  
+  
+  .col-25 {
+    float: left;
+    width: 30%;
+    margin-top: 6px;
+  }
+  
+  .col-75 {
+    float: left;
+    width: 50%;
+    margin-top: 6px;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: flex;
+    clear: both;
+    align-items: center;
+    text-align: center;
+  }
+
+  .submitbtn{
+    text-align: center;
+    background-color: #1c201f;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    width: 50%;
+    opacity: 0.9;
+   text-align: center;
+  }
+  button{
+    justify-content: center;
+    display: block;
+    text-align: center;
+  }
+  .submitbtn:hover {
+    opacity: 1;
+  }
+
+  
+  /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+      width: 100%;
+      margin-top: 0;
+    }
+  }

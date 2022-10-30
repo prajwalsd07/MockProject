@@ -2,25 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" href="" th:href="@{/css/all.css}"/>
 <title>Doctor Home Page</title>
 </head>
 <body>
 	<h1>Doctor Home Page</h1>
-	<hr>
-	<p>
-		<a href="doctor-find">Find Doctor</a>
-	</p>
-	<p>
-		<a href="doctor/list">List All doctors </a>
-	</p>
-	<p>
-		<a href="doctorSpeciality/list">List doctor in speciality </a>
-	</p>
-	<p>
-		<a href="doctorSpeciality/add">add doctor to speciality </a>
-	</p>
-	<p>
-		<a href="doctorSpeciality-remove">remove doctor from speciality </a>
-	</p>
+	<ul>
+	
+		<li><a class="active" href="doctor-find">Find Doctor</a></li>
+	 
+		<li><a href="doctor/list">List All doctors </a></li>
+	 
+		<li><a href="doctorSpeciality/list">List doctor in speciality </a></li>
+	 
+		<li><a href="doctorSpeciality/add">add doctor to speciality </a></li>
+ 
+		<li><a href="doctorSpeciality-remove">remove doctor from speciality </a></li>
+	</ul>
+	<div>
+	 <br>
+		<br>
+		<br>
+		<br>
+		<br>
+	<center><img src="" th:src="@{/image/doctor.png}" width="200" height="100" style="width:328px;height:290px;" ></center>
+</div>
 </body>
 </html>

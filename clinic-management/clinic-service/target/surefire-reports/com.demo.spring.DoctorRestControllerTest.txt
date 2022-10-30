@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.demo.spring.DoctorRestControllerTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.193 s - in com.demo.spring.DoctorRestControllerTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.133 s - in com.demo.spring.DoctorRestControllerTest

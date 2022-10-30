@@ -20,19 +20,17 @@ public class PatientDiagnosticController {
 	
 	@PostMapping(path = "/diagnostic/addDiagnosticPatient")
 	public ModelAndView addDiagnosticToPatient(PatientDiagnosticDTO patientDiagnosticDTO) {
-		System.out.println("bdffbdfdsgvtebbgsevsdbfgbsrgdrfgbr");
 		Integer patientID = patientDiagnosticDTO.getPatientID();
 		Integer diagnosticID = patientDiagnosticDTO.getDiagnosticID();
-		System.out.println("bdffbdfdsgvtebbgsevsdbfgbsrgdrfgbr");
-		System.out.println(" "+patientID+diagnosticID);
 		ModelAndView mv = new ModelAndView();
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<PatientDiagnosticDTO> req = new HttpEntity<>(patientDiagnosticDTO, headers);
 		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8194/clinic/patientDiagnostic/save/"+diagnosticID+"/"+patientID, HttpMethod.POST,
 				req, String.class);
-		mv.setViewName("savepatientsuccess");
+		
 		mv.addObject("response", response.getBody());
+		mv.setViewName("saveDiagnosticPatient");
 		return mv;
 	}
 }

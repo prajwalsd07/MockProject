@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ import com.demo.spring.util.Message;
 
 @Service
 public class DoctorSpecialityService {
+	private Logger logger = LogManager.getLogger(this.getClass().getName());
 
 	@Autowired
 	DoctorSpecialityRepository doctorSpecialityRepository;
@@ -29,15 +32,24 @@ public class DoctorSpecialityService {
 	@Autowired
 	SpecialityRepository specialityRepository;
 
-	public Message addDoctorService(DoctorSpecialityDTO doctorSpecialityDTO) throws DoctorNotFoundException {
+	public Message addDoctorService(DoctorSpecialityDTO doctorSpecialityDTO) throws DoctorNotFoundException, SpecialityNotFoundException {
 		if (doctorRepository.existsById(doctorSpecialityDTO.getDoctorID())) {
+			if(specialityRepository.existsById(doctorSpecialityDTO.getSpecialityID()))
+			{
 			DoctorSpeciality doctorSpeciality = new DoctorSpeciality(doctorSpecialityDTO.getId(),doctorSpecialityDTO.getDoctorID(),
 					doctorSpecialityDTO.getSpecialityID());
 			doctorSpecialityRepository.save(doctorSpeciality);
+			logger.info("Doctor added to speciality succcessfully");
 			return new Message("Doctor added to speciality");
+		}else
+		{logger.error("Exception : Speciality Not found Exception thrown");
+			throw new SpecialityNotFoundException();
+		}
 		} else {
+			logger.error("Exception : Doctor Not Found Exception thrown");
 			throw new DoctorNotFoundException();
 		}
+		
 
 	}
 
@@ -50,6 +62,7 @@ public class DoctorSpecialityService {
 			{
 			doctorSpecialityRepository.delete(doctorSpeciality);
 			}
+			logger.info("doctor removed from speciality successfully");
 			return new Message("Doctor Removed from Speciality");
 		}
 
@@ -60,7 +73,7 @@ public class DoctorSpecialityService {
 			Integer i = 0;
 			List<Doctor> doctorList = new ArrayList<>();
 			if(doctorIdList.isEmpty())
-			{ 
+			{ logger.error("Exception : Speciality Not Found Exception thrown");
 				throw new SpecialityNotFoundException();
 			}else
 			{
@@ -72,9 +85,11 @@ public class DoctorSpecialityService {
 					}
 				}
 				if (doctorList.isEmpty()) {
+					logger.error("Exception : Doctor Not Found Exception thrown");
 					throw new DoctorNotFoundException();
 					
 				} else {
+					logger.info("Doctors in entered speciality returned successfully");
 					return doctorList;
 				}
 			}

@@ -2,6 +2,8 @@
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,35 +23,62 @@ import com.demo.spring.exceptions.SpecialityNotFoundException;
 import com.demo.spring.service.DoctorSpecialityService;
 import com.demo.spring.util.Message;
 
+import io.micrometer.core.annotation.Timed;
+
 @RestController
 @RequestMapping(&quot;/clinic&quot;)
-<span class="fc" id="L26">public class DoctorSpecialityRestController {</span>
+<span class="fc" id="L30">public class DoctorSpecialityRestController {</span>
+<span class="fc" id="L31">	private Logger logger = LogManager.getLogger(this.getClass().getName());</span>
 
 	@Autowired
 	DoctorSpecialityService doctorSpecialityService;
 
-	/*
-	this will list all the doctors in a particular speciality
-	*/
+	/**
+	 * this will list all the doctors in a particular speciality
+	 * 
+	 * @param specialityID
+	 * @return
+	 * @throws SpecialityNotFoundException
+	 * @throws DoctorNotFoundException
+	 */
+	@Timed(value = &quot;requests.list.doctor.speciality&quot;)
 	@GetMapping(path = &quot;/speciality/list/{specialityID}&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity&lt;List&lt;Doctor&gt;&gt; listDoctorinSpeciality(@PathVariable(&quot;specialityID&quot;) Integer specialityID) throws SpecialityNotFoundException, DoctorNotFoundException {
-<span class="fc" id="L36">		return ResponseEntity.ok(doctorSpecialityService.listDoctorInSpeciality(specialityID));</span>
+	public ResponseEntity&lt;List&lt;Doctor&gt;&gt; listDoctorinSpeciality(@PathVariable(&quot;specialityID&quot;) Integer specialityID)
+			throws SpecialityNotFoundException, DoctorNotFoundException {
+<span class="fc" id="L48">		logger.info(&quot;this method had a call to list doctor in speciality service&quot;);</span>
+<span class="fc" id="L49">		return ResponseEntity.ok(doctorSpecialityService.listDoctorInSpeciality(specialityID));</span>
 	}
-	
-	/*
-	this will add new doctor to a speciality
-	*/
-	@PostMapping(path=&quot;/speciality/addDoctor&quot; ,consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity&lt;Message&gt; addDoctorToSpeciality(@RequestBody DoctorSpecialityDTO doctorSpecialityDTO) throws DoctorNotFoundException{
-<span class="fc" id="L44">		return ResponseEntity.ok(doctorSpecialityService.addDoctorService(doctorSpecialityDTO));</span>
-    }
-	
-	/*
-	this will remove doctor from speciality
-	*/
+
+	/**
+	 * this will add new doctor to a speciality
+	 * 
+	 * @param doctorSpecialityDTO
+	 * @return
+	 * @throws DoctorNotFoundException
+	 * @throws SpecialityNotFoundException 
+	 */
+	@Timed(value = &quot;requests.add.doctor.speciality&quot;)
+	@PostMapping(path = &quot;/speciality/addDoctor&quot;, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity&lt;Message&gt; addDoctorToSpeciality(@RequestBody DoctorSpecialityDTO doctorSpecialityDTO)
+			throws DoctorNotFoundException, SpecialityNotFoundException {
+<span class="fc" id="L64">		logger.info(&quot;this method had a call to add doctor to speciality service&quot;);</span>
+<span class="fc" id="L65">		return ResponseEntity.ok(doctorSpecialityService.addDoctorService(doctorSpecialityDTO));</span>
+	}
+
+	/**
+	 * this will remove doctor from speciality
+	 * 
+	 * @param doctorId
+	 * @param specialityId
+	 * @return
+	 * @throws DoctorSpecialityNotFoundException
+	 */
+	@Timed(value = &quot;requests.remove.doctor.speciality&quot;)
 	@DeleteMapping(path = &quot;/speciality/removeDoctor/{doctorID}/{specialityID}&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity&lt;Message&gt; removeDoctorFromSpeciality(@PathVariable(&quot;doctorID&quot;) Integer doctorId,@PathVariable(&quot;specialityID&quot;) Integer specialityId) throws DoctorSpecialityNotFoundException {
-<span class="fc" id="L52">		return ResponseEntity.ok(doctorSpecialityService.removeDoctorFromSpecialityService(doctorId,specialityId));</span>
+	public ResponseEntity&lt;Message&gt; removeDoctorFromSpeciality(@PathVariable(&quot;doctorID&quot;) Integer doctorId,
+			@PathVariable(&quot;specialityID&quot;) Integer specialityId) throws DoctorSpecialityNotFoundException {
+<span class="fc" id="L80">		logger.info(&quot;this method had a call to remove doctor from speciality service&quot;);</span>
+<span class="fc" id="L81">		return ResponseEntity.ok(doctorSpecialityService.removeDoctorFromSpecialityService(doctorId, specialityId));</span>
 	}
 
 }
